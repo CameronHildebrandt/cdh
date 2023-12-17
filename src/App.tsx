@@ -35,6 +35,7 @@ import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
 import redirects from './redirects.json';
+import './App.css';
 
 export default function App() {
   return (

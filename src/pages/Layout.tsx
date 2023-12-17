@@ -1,5 +1,9 @@
 import { Outlet, Link } from "react-router-dom";
 
+// TODO: add in a fancy loading blocker with nice animations - it probs shouldn't go away after a redirect
+// TODO: make the fancy single page thing, hooked up to scrolling
+// TODO: figure out how to stop the redirect from resending if user presses back
+
 const Layout = () => {
   return (
     <>

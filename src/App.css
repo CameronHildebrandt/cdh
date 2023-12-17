@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
+/* @import "./spinner.sass"; */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* $dark_pageBackgroundColor: rgba(0,0,0,1);
+$base_pageBackgroundColor: rgba(15,15,15,1);
+$light_pageBackgroundColor: rgba(30,30,30,1);
+$xlight_pageBackgroundColor: rgba(45,45,45,1);
+
+$dark_halfOpacity_pageBackgroundColor: rgba(0,0,0,0.5);
+$base_halfOpacity_pageBackgroundColor: rgba(15,15,15,0.5);
+$light_halfOpacity_pageBackgroundColor: rgba(30,30,30,0.5);
+
+$dark_fontColor: rgba(225,225,225,1);
+$base_fontColor: rgba(240,240,240,1);
+$light_fontColor: rgba(255,255,255,1);
+
+$dark_halfOpacity_fontColor: rgba(225,225,225,0.5);
+$base_halfOpacity_fontColor: rgba(240,240,240,0.5);
+$light_halfOpacity_fontColor: rgba(255,255,255,0.5);
+
+$dark_quarterOpacity_fontColor: rgba(225,225,225,0.25);
+$base_quarterOpacity_fontColor: rgba(240,240,240,0.25);
+$light_quarterOpacity_fontColor: rgba(255,255,255,0.25);
+
+$inactive_fontColor: rgba(100,100,100,1);
+
+$dark_primaryColor: rgba(255,0,127,1); // TODO: Update
+$base_primaryColor: rgba(255,0,127,1);
+$light_primaryColor: rgba(255,0,127,1); // TODO: Update
+
+$dark_secondaryColor: rgba(96,13,255,1); // TODO: Update
+$base_secondaryColor: rgba(96,13,255,1); // TODO: Update
+$light_secondaryColor: rgba(96,13,255,1); // TODO: Update
+
+$dark_tertiaryColor: rgba(73,220,177,1); // TODO: Update
+$base_tertiaryColor: rgba(73,220,177,1); // TODO: Update
+$light_tertiaryColor: rgba(73,220,177,1); // TODO: Update
+
+$base_primaryGradientStart: rgba(255,0,69,1);
+$base_primaryGradientEnd: rgba(255,0,255,1);
+$base_gradientAngle: 135deg;
+
+$base_blurAmount: 15px;
+
+$base_margin: 25px;
+$base_borderRadius: 25px;
+
+$base_natHACKSTitleLetterSize: 13vw; */
+
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* html {
+  // scroll-behavior: smooth; // Currently breaks the scroller, feedback loop needs it to jump.
+  // background-color: $base_pageBackgroundColor; // This fixes the issue with overscroll looking bad on safari... BUT it hides all components with negative z index.
+} */
+
+body {
+  /* background-color: $base_pageBackgroundColor;
+  color: $base_fontColor; */
+  background-color: rgba(15,15,15,1);
+  color: rgba(240,240,240,1);
+
+  margin: 0;
+
+  /* // No horizontal scrolling */
+  overflow-x: hidden;
+
+  font-size: 12px;
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+
+/* Temp */
+li {
+  user-select: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a, a:link, a:visited {
+  color: rgba(240,240,240,1);
 }
