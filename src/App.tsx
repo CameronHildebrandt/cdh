@@ -28,13 +28,13 @@
 
 
 
-import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
+import redirects from './redirects.json';
 
 export default function App() {
   return (
@@ -44,15 +44,21 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
+
+
+          {/* TODO: Make it so slugs are case sensitive at first, case insensitive on second pass, then send to 404 */}
+          {redirects.data.map((redirect) => {
+            return (
+              <Route path={`/${redirect.slug}`} key={redirect.slug} Component={() => {
+                window.location.href = redirect.location;
+                return null;
+              }}/>
+            )
+          })}
+
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
   );
-}
-
-const rootElement = document.getElementById('root');
-if(rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(<App />);
 }

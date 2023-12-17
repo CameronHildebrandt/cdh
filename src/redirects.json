@@ -1,0 +1,76 @@
+{
+  "data": [
+    {
+      "slug": "git",
+      "location": "https://github.com/CameronHildebrandt"
+    },
+    {
+      "slug": "linkedin",
+      "location": "https://www.linkedin.com/in/hldt"
+    },
+    {
+      "slug": "nathacks",
+      "location": "https://nathacks.ca"
+    },
+    {
+      "slug": "natsite",
+      "location": "https://neuralberta.tech"
+    },
+    {
+      "slug": "natpass",
+      "location": "https://pass.neuralberta.tech"
+    },
+    {
+      "slug": "natdemo",
+      "location": "https://demo.neuralberta.tech"
+    },
+    {
+      "slug": "capstone",
+      "location": "/capstone.pdf"
+    },
+    {
+      "slug": "nast",
+      "location": "https://www.youtube.com/watch?v=jmB4IhfGhuY&t=6s"
+    },
+    {
+      "slug": "amr",
+      "location": "https://sites.google.com/ualberta.ca/cameron"
+    },
+    {
+      "slug": "btcw",
+      "location": "https://bitcoinwell.com/app/"
+    },
+    {
+      "slug": "go-player",
+      "location": "https://github.com/CameronHildebrandt/455-a4-trainer"
+    },
+    {
+      "slug": "brain-drone",
+      "location": "https://www.youtube.com/watch?v=-3UTwKpKpcI&t=48s"
+    },
+    {
+      "slug": "alpha-blaster",
+      "location": "https://www.youtube.com/watch?v=32io4iy6L0k&t=217s"
+    },
+    {
+      "slug": "koalacademy",
+      "location": "https://koalacademy.com/"
+    },
+    {
+      "slug": "museic",
+      "location": "https://github.com/neuralbertatech/Museic"
+    },
+    {
+      "slug": "tv-lights",
+      "location": "https://github.com/CameronHildebrandt/TV-Light-Strip"
+    },
+    {
+      "slug": "vehicle-lights-v1",
+      "location": "https://github.com/CameronHildebrandt/Vehicle-Lighting-Controller-v1"
+    },
+    {
+      "slug": "vehicle-lights-v2",
+      "location": "https://github.com/CameronHildebrandt/Vehicle-Lighting-Controller-v2"
+    }
+  ]
+}

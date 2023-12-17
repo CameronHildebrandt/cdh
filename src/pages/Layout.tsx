@@ -5,14 +5,20 @@ const Layout = () => {
     <>
       <nav>
         <ul>
-          <li>
+          <li key="home">
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/blogs">Blogs</Link>
+          <li key="blog">
+            <Link to="/blogs">Blog</Link>
           </li>
-          <li>
+          <li key="contact">
             <Link to="/contact">Contact</Link>
+          </li>
+          <li key="github">
+            <Link to="/git">GitHub</Link>
+          </li>
+          <li key="linkedin">
+            <Link to="/linkedin">LinkedIn</Link>
           </li>
         </ul>
       </nav>
