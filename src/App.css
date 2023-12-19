@@ -1,3 +1,8 @@
+/* TODO: Convert to SCSS or SASS */
+
+
+
+
 /* @import "./spinner.sass"; */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
@@ -64,7 +69,7 @@ body {
 
   margin: 0;
 
-  /* // No horizontal scrolling */
+  /* No horizontal scrolling */
   overflow-x: hidden;
 
   font-size: 12px;
@@ -73,12 +78,109 @@ body {
 }
 
 
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.content_container {
+  /* background-color: rgba(255,0,0,0.5); */
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.nav_container {
+  height: 100vh;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+
+  position: fixed;
+}
+
+
+.nav_element {
+  height: 25px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-decoration: none;
+
+  font-weight: 200;
+  font-size: 20px;
+
+  color: rgba(100,100,100);
+}
+
+.nav_element_active {
+  font-weight: 400;
+  color: rgba(240,240,240);
+}
+
+.nav_element:hover {
+  background: -webkit-linear-gradient(45deg, #FF007A, #AD00FF);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.hero_container {
+  width: 100vw;
+  height: 100vh;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  /* background-color: rgba(255,0,255,0.5); */
+}
+
+.hero_title {
+  font-weight: 900;
+  font-size: 100px;
+}
+
+.hero_subtitle {
+  font-weight: 200;
+  font-size: 50px;
+
+  background: -webkit-linear-gradient(45deg, #FF007A, #AD00FF);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+
+
 
 /* Temp */
 li {
   user-select: none;
 }
 
-a, a:link, a:visited {
-  color: rgba(240,240,240,1);
+.placeholder {
+  height: 100vh;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  /* background-color: rgba(255,0,0,0.1); */
 }

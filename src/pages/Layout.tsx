@@ -7,30 +7,20 @@ import { Outlet, Link } from "react-router-dom";
 const Layout = () => {
   return (
     <>
-      <nav>
-        <ul>
-          <li key="home">
-            <Link to="/">Home</Link>
-          </li>
-          <li key="blog">
-            <Link to="/blogs">Blog</Link>
-          </li>
-          <li key="contact">
-            <Link to="/contact">Contact</Link>
-          </li>
-          <li key="github">
-            <Link to="/git">GitHub</Link>
-          </li>
-          <li key="linkedin">
-            <Link to="/linkedin">LinkedIn</Link>
-          </li>
-          <li key="capstone">
-            <Link to="/capstone">Capstone</Link>
-          </li>
-        </ul>
-      </nav>
+      <div className="main">
+        <nav className="nav_container">
+          <Link to="/" className="nav_element nav_element_active">Home</Link>
+          <Link to="/blogs" className="nav_element">Blog</Link>
+          <Link to="/contact" className="nav_element">Contact</Link>
+          <Link to="/capstone" className="nav_element">Capstone</Link>
+          <Link to="/github" className="nav_element">GitHub</Link>
+          <Link to="/linkedin" className="nav_element">LinkedIn</Link>
+        </nav>
 
-      <Outlet />
+        <div className="content_container">
+          <Outlet />
+        </div>
+      </div>
     </>
   )
 };
