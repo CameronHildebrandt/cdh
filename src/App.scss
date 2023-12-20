@@ -55,10 +55,8 @@ $base_borderRadius: 25px;
 } */
 
 body {
-  /* background-color: $base_pageBackgroundColor;
-  color: $base_fontColor; */
-  background-color: rgba(15,15,15,1);
-  color: rgba(240,240,240,1);
+  background-color: $base_pageBackgroundColor;
+  color: $base_fontColor;
 
   margin: 0;
 
@@ -74,8 +72,6 @@ body {
 .main {
   width: 100vw;
   height: 100vh;
-  // display: flex;
-  // flex-direction: row-reverse;
 }
 
 .content_container {
@@ -114,6 +110,8 @@ body {
   align-items: flex-end;
   justify-content: center;
   text-decoration: none;
+  user-select: none;
+  cursor: pointer;
 
   font-weight: 200;
   font-size: 20px;
@@ -121,7 +119,7 @@ body {
   color: rgba(100,100,100);
 }
 
-.nav_element_active {
+.nav_element.active {
   font-weight: 400;
   color: rgba(240,240,240);
 }
@@ -287,6 +285,7 @@ body {
 .mobileNav_link {
   text-align: right;
   scroll-snap-align: start;
+  user-select: none;
 
   height: 20px;
   // overflow: hidden;

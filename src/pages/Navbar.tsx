@@ -275,8 +275,8 @@ const Navbar = () => (
           <div className="mobileNav_link"></div>
           <div className="mobileNav_link active">Welcome</div>
           <div className="mobileNav_link">Portfolio</div>
-          <div className="mobileNav_link">Experience</div>
-          <div className="mobileNav_link">Skills</div>
+          <div className="mobileNav_link">Experiences</div>
+          <div className="mobileNav_link">Competencies</div>
           <div className="mobileNav_link">Personal</div>
           <div className="mobileNav_link">Resume</div>
           <div className="mobileNav_link">Contact</div>
@@ -288,15 +288,26 @@ const Navbar = () => (
     </div>
 
 
+    {/* TODO: Build a second header bar for desktop - hide entire mobile nav when wide. Programming a bunch of exceptions in the mobile nav sounds like a great source of bugs */}
+
+
 
     {/* refactor into desktopNav */}
     <div className="desktopNav">
-      <Link to="/" className="nav_element nav_element_active">Home</Link>
+      {/* <Link to="/" className="nav_element nav_element_active">Home</Link>
       <Link to="/blogs" className="nav_element">Blog</Link>
       <Link to="/contact" className="nav_element">Contact</Link>
       <Link to="/capstone" className="nav_element">Capstone</Link>
       <Link to="/github" className="nav_element">GitHub</Link>
-      <Link to="/linkedin" className="nav_element">LinkedIn</Link>
+      <Link to="/linkedin" className="nav_element">LinkedIn</Link> */}
+
+      <div className="nav_element active">Welcome</div>
+      <div className="nav_element">Portfolio</div>
+      <div className="nav_element">Experiences</div>
+      <div className="nav_element">Competencies</div>
+      <div className="nav_element">Personal</div>
+      <div className="nav_element">Resume</div>
+      <div className="nav_element">Contact</div>
     </div>
     {/* refactor into desktopNav */}
   </div>
