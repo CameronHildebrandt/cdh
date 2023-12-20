@@ -1,6 +1,6 @@
 // import React from 'react';
 // import logo from './logo.svg';
-// import './App.css';
+// import './App.scss';
 
 // function App() {
 //   return (
@@ -35,7 +35,7 @@ import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
 import redirects from './redirects.json';
-import './App.css';
+import './App.scss';
 
 export default function App() {
   return (

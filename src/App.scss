@@ -1,12 +1,7 @@
-/* TODO: Convert to SCSS or SASS */
-
-
-
-
-/* @import "./spinner.sass"; */
+// @import "./spinner.sass";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-/* $dark_pageBackgroundColor: rgba(0,0,0,1);
+$dark_pageBackgroundColor: rgba(0,0,0,1);
 $base_pageBackgroundColor: rgba(15,15,15,1);
 $light_pageBackgroundColor: rgba(30,30,30,1);
 $xlight_pageBackgroundColor: rgba(45,45,45,1);
@@ -19,13 +14,13 @@ $dark_fontColor: rgba(225,225,225,1);
 $base_fontColor: rgba(240,240,240,1);
 $light_fontColor: rgba(255,255,255,1);
 
-$dark_halfOpacity_fontColor: rgba(225,225,225,0.5);
-$base_halfOpacity_fontColor: rgba(240,240,240,0.5);
-$light_halfOpacity_fontColor: rgba(255,255,255,0.5);
+// $dark_halfOpacity_fontColor: rgba(225,225,225,0.5);
+// $base_halfOpacity_fontColor: rgba(240,240,240,0.5);
+// $light_halfOpacity_fontColor: rgba(255,255,255,0.5);
 
-$dark_quarterOpacity_fontColor: rgba(225,225,225,0.25);
-$base_quarterOpacity_fontColor: rgba(240,240,240,0.25);
-$light_quarterOpacity_fontColor: rgba(255,255,255,0.25);
+// $dark_quarterOpacity_fontColor: rgba(225,225,225,0.25);
+// $base_quarterOpacity_fontColor: rgba(240,240,240,0.25);
+// $light_quarterOpacity_fontColor: rgba(255,255,255,0.25);
 
 $inactive_fontColor: rgba(100,100,100,1);
 
@@ -46,11 +41,9 @@ $base_primaryGradientEnd: rgba(255,0,255,1);
 $base_gradientAngle: 135deg;
 
 $base_blurAmount: 15px;
-
 $base_margin: 25px;
 $base_borderRadius: 25px;
 
-$base_natHACKSTitleLetterSize: 13vw; */
 
 * {
   box-sizing: border-box;
@@ -81,11 +74,12 @@ body {
 .main {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: row-reverse;
+  // display: flex;
+  // flex-direction: row-reverse;
 }
 
 .content_container {
+  // Unused
   /* background-color: rgba(255,0,0,0.5); */
   width: 100%;
 
@@ -93,11 +87,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  // Unused
 }
 
-.nav_container {
+.desktopNav {
   height: 100vh;
-  padding: 30px;
+  padding-right: 30px;
 
   display: flex;
   flex-direction: column;
@@ -105,6 +100,8 @@ body {
   justify-content: center;
 
   position: fixed;
+  top: 0;
+  right: 0;
 }
 
 
@@ -142,6 +139,8 @@ body {
   height: 100vh;
   padding: 30px;
 
+  overflow: hidden;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -164,6 +163,149 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+
+
+
+
+
+
+////////////////////////////
+////// Mobile Nav Bar //////
+.mobileNav {
+  z-index: 100;
+
+  background-color: $base_halfOpacity_pageBackgroundColor;
+  width: 100vw;
+  height: 400px;
+  position: fixed;
+
+  backdrop-filter: blur($base_blurAmount);
+  -webkit-backdrop-filter: blur($base_blurAmount);
+
+  
+  // opacity: 0;  // Animates between  0   and  1
+  // top: -400px; // Animates between -400 and -300
+  
+  opacity: 1;  // temp for dev
+  top: -300px; // temp for dev
+
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.mobileNav_simpleArrow {
+  position: absolute;
+  height: 20px;
+  right: -10px;
+  bottom: 39px;
+}
+
+.mobileNav_mainContainer {
+  position: absolute;
+  bottom: 0px;
+
+  height: 100px;
+  width: 100vw;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.mobileNav_titleContainer {
+  height: 100%;
+  width: 100%;
+  padding-left: $base_margin;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.mobileNav_title {
+  height: 75px;
+}
+
+.mobileNav_cta {
+  height: 35px;
+  width: 90%;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  border: 1px solid $base_fontColor;
+  border-radius: $base_margin;
+
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+.mobileNav_cta:hover, .mobileNav_cta:active {
+  border-color: $base_primaryColor;
+}
+
+.mobileNav_ctaText {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.mobileNav_ctaLogo {
+  height: 15px;
+}
+
+.mobileNav_linksContainer {
+  // background-color: rgba(0,0,255,0.25);
+  height: 100%;
+  width: 200px;
+  padding-right: $base_margin;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 48px, black calc(100% - 48px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 48px, black calc(100% - 48px), transparent 100%);
+
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.mobileNav_linksContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.mobileNav_link {
+  text-align: right;
+  scroll-snap-align: start;
+
+  height: 20px;
+  // overflow: hidden;
+  flex-shrink: 0;
+
+  color: $inactive_fontColor;
+  font-size: 18px;
+  font-weight: 200;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.mobileNav_link.active {
+  color: $base_fontColor;
+}
+////// Mobile Nav Bar //////
+////////////////////////////
+
+
+
 
 
 
