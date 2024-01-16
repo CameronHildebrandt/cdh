@@ -289,24 +289,15 @@ const Navbar = () => (
 
 
 
-    {/* TODO: Build a second header bar for desktop - hide entire mobile nav when wide. Programming a bunch of exceptions in the mobile nav sounds like a great source of bugs */}
-
-
+    
+    {/* v Desktop Elements v */}
     <div className="desktopHeaderBar">
       <div className="desktopHeaderBar_titleContainer">
         <img className="desktopHeaderBar_title" src="/logo/cdh.svg" alt="CDH Personal Logo" />
       </div>
     </div>
 
-    {/* refactor into desktopNav */}
     <div className="desktopNav">
-      {/* <Link to="/" className="nav_link nav_link_active">Home</Link>
-      <Link to="/blogs" className="nav_link">Blog</Link>
-      <Link to="/contact" className="nav_link">Contact</Link>
-      <Link to="/capstone" className="nav_link">Capstone</Link>
-      <Link to="/github" className="nav_link">GitHub</Link>
-      <Link to="/linkedin" className="nav_link">LinkedIn</Link> */}
-
       <div className="desktopNav_link active">Welcome</div>
       <div className="desktopNav_link">Portfolio</div>
       <div className="desktopNav_link">Experiences</div>
@@ -315,9 +306,7 @@ const Navbar = () => (
       <div className="desktopNav_link">Resume</div>
       <div className="desktopNav_link">Contact</div>
     </div>
-    {/* refactor into desktopNav */}
-
-
+    {/* ^ Desktop Elements ^ */}
 
   </div>
 );

@@ -4,7 +4,6 @@
 $dark_pageBackgroundColor: rgba(0,0,0,1);
 $base_pageBackgroundColor: rgba(15,15,15,1);
 $light_pageBackgroundColor: rgba(30,30,30,1);
-$xlight_pageBackgroundColor: rgba(45,45,45,1);
 
 $dark_halfOpacity_pageBackgroundColor: rgba(0,0,0,0.5);
 $base_halfOpacity_pageBackgroundColor: rgba(15,15,15,0.5);
@@ -14,8 +13,9 @@ $dark_fontColor: rgba(225,225,225,1);
 $base_fontColor: rgba(240,240,240,1);
 $light_fontColor: rgba(255,255,255,1);
 
-$base_activeColor: rgba(240,240,240,1);
-$base_inactiveColor: rgba(100,100,100,1);
+$dark_inactive_fontColor: rgba(100,100,100,1);
+$base_inactive_fontColor: rgba(100,100,100,1);
+$light_inactive_fontColor: rgba(100,100,100,1);
 
 
 
@@ -30,7 +30,6 @@ $base_inactiveColor: rgba(100,100,100,1);
 // $base_quarterOpacity_fontColor: rgba(240,240,240,0.25);
 // $light_quarterOpacity_fontColor: rgba(255,255,255,0.25);
 
-$inactive_fontColor: rgba(100,100,100,1);
 
 $dark_primaryColor: rgba(255,0,127,1); // TODO: Update
 $base_primaryColor: rgba(255,0,127,1);
@@ -132,7 +131,6 @@ body {
   backdrop-filter: blur($base_blurAmount);
   -webkit-backdrop-filter: blur($base_blurAmount);
 
-  
   // opacity: 0;  // Animates between  0   and  1
   // top: -400px; // Animates between -400 and -300
   
@@ -243,7 +241,7 @@ body {
   // overflow: hidden;
   flex-shrink: 0;
 
-  color: $inactive_fontColor;
+  color: $base_inactive_fontColor;
   font-size: 18px;
   font-weight: 200;
   font-family: 'Montserrat', sans-serif;
@@ -313,12 +311,12 @@ body {
   font-weight: 200;
   font-size: 20px;
 
-  color: $base_inactiveColor
+  color: $base_inactive_fontColor;
 }
 
 .desktopNav_link.active {
   font-weight: 400;
-  color: $base_activeColor;
+  color: $base_fontColor;
 }
 
 .desktopNav_link:hover {
@@ -344,6 +342,21 @@ body {
 }
 ////// Desktop Nav Bar //////
 /////////////////////////////
+
+
+
+////// Sectors //////
+/////////////////////
+.sector {
+  // min-height: 5vh;
+  min-height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+}
+/////////////////////
+////// Sectors //////
 
 
 
