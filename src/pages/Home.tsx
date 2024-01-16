@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
     <div>
@@ -7,7 +9,10 @@ const Home = () => {
         <div className="hero_subtitle">Full-Stack Web Developer</div>
         {/* TODO: make the gradient static to the background, scroll over? */}
       </div>
-      <div className="placeholder">🚧 Website under construction! 🚧</div>
+      <div className="siteConstructionPlaceholder">🚧 Website under construction! 🚧</div>
+      {/* <Link to="/capstone">Capstone</Link>
+      <Link to="/github">GitHub</Link>
+      <Link to="/linkedin">LinkedIn</Link> */}
     </div>
   );
 };

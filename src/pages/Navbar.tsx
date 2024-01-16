@@ -288,28 +288,37 @@ const Navbar = () => (
     </div>
 
 
+
     {/* TODO: Build a second header bar for desktop - hide entire mobile nav when wide. Programming a bunch of exceptions in the mobile nav sounds like a great source of bugs */}
 
 
+    <div className="desktopHeaderBar">
+      <div className="desktopHeaderBar_titleContainer">
+        <img className="desktopHeaderBar_title" src="/logo/cdh.svg" alt="CDH Personal Logo" />
+      </div>
+    </div>
 
     {/* refactor into desktopNav */}
     <div className="desktopNav">
-      {/* <Link to="/" className="nav_element nav_element_active">Home</Link>
-      <Link to="/blogs" className="nav_element">Blog</Link>
-      <Link to="/contact" className="nav_element">Contact</Link>
-      <Link to="/capstone" className="nav_element">Capstone</Link>
-      <Link to="/github" className="nav_element">GitHub</Link>
-      <Link to="/linkedin" className="nav_element">LinkedIn</Link> */}
+      {/* <Link to="/" className="nav_link nav_link_active">Home</Link>
+      <Link to="/blogs" className="nav_link">Blog</Link>
+      <Link to="/contact" className="nav_link">Contact</Link>
+      <Link to="/capstone" className="nav_link">Capstone</Link>
+      <Link to="/github" className="nav_link">GitHub</Link>
+      <Link to="/linkedin" className="nav_link">LinkedIn</Link> */}
 
-      <div className="nav_element active">Welcome</div>
-      <div className="nav_element">Portfolio</div>
-      <div className="nav_element">Experiences</div>
-      <div className="nav_element">Competencies</div>
-      <div className="nav_element">Personal</div>
-      <div className="nav_element">Resume</div>
-      <div className="nav_element">Contact</div>
+      <div className="desktopNav_link active">Welcome</div>
+      <div className="desktopNav_link">Portfolio</div>
+      <div className="desktopNav_link">Experiences</div>
+      <div className="desktopNav_link">Competencies</div>
+      <div className="desktopNav_link">Personal</div>
+      <div className="desktopNav_link">Resume</div>
+      <div className="desktopNav_link">Contact</div>
     </div>
     {/* refactor into desktopNav */}
+
+
+
   </div>
 );
 
