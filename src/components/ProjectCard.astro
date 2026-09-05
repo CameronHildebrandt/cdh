@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { ArrowUpRight } from 'lucide-astro';
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+---
+<article class="project-card">
+  {project.data.image && <div class="project-card__media"><img src={project.data.image} alt={project.data.imageAlt ?? ''} loading="lazy" decoding="async" /></div>}
+  <div class="project-card__content">
+    <div class="project-card__top"><p class="mono">Selected work</p><ArrowUpRight aria-hidden="true" size={18} /></div>
+    <h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3>
+    <p>{project.data.description}</p>
+    <ul class="tag-list" aria-label="Technologies used">{project.data.technologies.map((technology) => <li>{technology}</li>)}</ul>
+  </div>
+</article>

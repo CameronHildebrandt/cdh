@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+const projects = (await getCollection('projects')).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+---
+<BaseLayout title="Projects — Cameron Hildebrandt" description="Projects and case studies by Cameron Hildebrandt.">
+  <div class="page"><header class="page-intro"><p class="eyebrow">Selected work</p><h1>Projects.</h1><p>A growing collection of product, design, and engineering work. The entries are intentionally content-driven, so case studies stay easy to write and maintain.</p></header><div class="project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div></div>
+</BaseLayout>

@@ -1,0 +1,16 @@
+---
+import { experience } from '../data/experience';
+---
+<ol class="timeline">
+  {experience.map((item) => (
+    <li>
+      <p class="timeline__date mono">{item.startDate} — {item.endDate}</p>
+      <article class="timeline__entry">
+        <div><h3>{item.title}</h3><p class="timeline__meta">{item.company} · {item.city}</p></div>
+        <p>{item.description}</p>
+        <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
+        <ul class="tag-list" aria-label="Technologies used">{item.technologies.map((technology) => <li>{technology}</li>)}</ul>
+      </article>
+    </li>
+  ))}
+</ol>

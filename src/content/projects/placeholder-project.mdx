@@ -1,0 +1,39 @@
+---
+title: "Pixel Ratio for Occluded Vehicles"
+description: "A team research project exploring an occlusion-aware loss metric for monocular 3D vehicle detection."
+published: 2026-09-05
+featured: true
+technologies: ["Computer vision", "YOLO3D", "ResNet-18", "Detectron2", "KITTI"]
+image: "https://images.unsplash.com/photo-1649959149294-d0bbf3d4b9d2?auto=format&fit=crop&w=1600&q=80"
+imageAlt: "An Arduino Uno board on a dark surface"
+links:
+  - label: "Read the paper"
+    href: "https://cameronhildebrandt.dev/capstone.pdf"
+---
+
+An undergraduate capstone completed with Paul Saunders, Khalid Al-Mahrezi, and Curtis Kennedy at the University of Alberta. We investigated whether a new occlusion-aware metric could improve 3D bounding-box estimation for cars from a single RGB image.
+
+## The question
+
+Estimating 3D vehicle bounding boxes from a monocular image is difficult because the scene has no direct depth information. Occlusion makes it harder still: the categorical labels in the KITTI dataset do not express how much of a car is actually visible.
+
+We proposed **Pixel Ratio**: the number of pixels belonging to the car divided by the number of pixels in its 2D bounding box. A lower ratio signals greater occlusion. Unlike raw pixel count, our analysis found the ratio had virtually no correlation with depth while remaining meaningfully correlated with occlusion.
+
+## The approach
+
+We used Detectron2 segmentation output and KITTI annotations to calculate Pixel Ratio for more than 20,000 vehicle samples. We then trained baseline and Pixel Ratio-weighted variants of two architectures:
+
+- YOLO3D, a geometry-aware 3D bounding-box framework built on 2D detections.
+- A ResNet-18 baseline, used to separate the effect of the metric from task-specific architecture choices.
+
+We used a stratified 80/20 train-test split to preserve the distribution of occlusion categories and evaluated predictions with 3D IoU, average precision, coordinate/camera error, and orientation error. The project also included an implementation of rotated 3D IoU for evaluation.
+
+## What we found
+
+The metric was not a broad, statistically significant improvement to average precision, but it did not degrade overall model performance. The most encouraging result was a statistically significant reduction in orientation error for the Pixel Ratio YOLO3D model on highly occluded vehicles.
+
+That makes Pixel Ratio a useful starting point rather than a finished solution: its low implementation cost and non-destructive effect suggest it could be worth testing with additional model architectures or a more precise estimate of a vehicle's unobscured area.
+
+## Project context
+
+This work was completed with guidance from University of Alberta domain experts Dr. Ehsan Hashemi, Dr. Arunava Banerjee, and Marcelo Jafett Contreras Cabrera. Read the full paper for methods, evaluation tables, references, and future-work discussion.

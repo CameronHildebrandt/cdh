@@ -1,0 +1,8 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const posts = (await getCollection('writing')).filter((post) => !post.data.draft).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+---
+<BaseLayout title="Writing — Cameron Hildebrandt" description="Writing by Cameron Hildebrandt.">
+  <div class="page"><header class="page-intro"><p class="eyebrow">Writing</p><h1>Notes on the work.</h1><p>Short pieces about building for the web. MDX keeps each post portable, fast, and pleasant to write.</p></header><div class="timeline">{posts.map((post) => <article class="timeline__entry"><p class="mono">{post.data.published.toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' })}</p><h2>{post.data.title}</h2><p>{post.data.description}</p></article>)}</div></div>
+</BaseLayout>
