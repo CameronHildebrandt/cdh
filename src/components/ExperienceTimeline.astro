@@ -5,7 +5,7 @@ import { experience } from '../data/experience';
   {experience.map((item, index) => (
     <li class="experience-preview" data-experience-preview role="button" tabindex="0" aria-expanded="false" aria-controls={`experience-timeline-${index}`}>
       <div class="experience-preview__content" id={`experience-timeline-${index}`}>
-          <div class="timeline__date"><p class="mono">{item.startDate} — {item.endDate}</p>{item.duration && <p class="timeline__duration"><span class="timeline__duration-full">{item.duration}</span><span class="timeline__duration-short">{item.durationShort}</span></p>}</div>
+          <div class="timeline__date" data-experience-date={item.isCurrent ? '' : undefined} data-start-date={item.isCurrent ? item.startDate : undefined}><p class="mono">{item.startDate} — {item.endDate}</p>{item.duration && <p class="timeline__duration"><span class="timeline__duration-full">{item.duration}</span><span class="timeline__duration-short">{item.durationShort}</span></p>}</div>
           <article class="timeline__entry">
             <div><h3>{item.title}</h3><p class="timeline__meta">{item.company}{item.city && ` · ${item.city}`}</p></div>
             <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
@@ -18,6 +18,28 @@ import { experience } from '../data/experience';
 
 <script>
   document.documentElement.classList.add('has-js');
+  const monthIndexes: Record<string, number> = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+  const currentDuration = (startDate: string) => {
+    const [, month, year] = startDate.match(/^([A-Za-z]+)\.?\s+(\d{4})$/) ?? [];
+    if (!month || !year) return null;
+    const startMonth = monthIndexes[month.slice(0, 3).toLowerCase()];
+    if (startMonth === undefined) return null;
+    const today = new Date();
+    const durationInMonths = Math.max(0, (today.getFullYear() - Number(year)) * 12 + today.getMonth() - startMonth);
+    const years = Math.floor(durationInMonths / 12);
+    const months = durationInMonths % 12;
+    const full = [years && `${years} ${years === 1 ? 'year' : 'years'}`, months && `${months} ${months === 1 ? 'month' : 'months'}`].filter(Boolean).join(' ');
+    const short = [years && `${years}y`, months && `${months}m`].filter(Boolean).join(' ');
+    return { full, short };
+  };
+  document.querySelectorAll<HTMLElement>('[data-experience-date]').forEach((date) => {
+    const duration = currentDuration(date.dataset.startDate ?? '');
+    if (!duration) return;
+    const full = date.querySelector<HTMLElement>('.timeline__duration-full');
+    const short = date.querySelector<HTMLElement>('.timeline__duration-short');
+    if (full) full.textContent = duration.full;
+    if (short) short.textContent = duration.short;
+  });
   document.querySelectorAll<HTMLElement>('[data-experience-preview]').forEach((preview) => {
     const content = preview.querySelector<HTMLElement>('.experience-preview__content');
     const measure = () => preview.style.setProperty('--expanded-height', `${content?.scrollHeight ?? 150}px`);

@@ -6,6 +6,7 @@ export type Experience = {
   city: string;
   company: string;
   title: string;
+  isCurrent: boolean;
   duration: string;
   durationShort: string;
   highlights: string[];
@@ -13,6 +14,8 @@ export type Experience = {
 
 function toPlainText(value: string) {
   return value
+    .replace(/\\(?:textrightarrow|rightarrow)/g, '→')
+    .replace(/\$/g, '')
     .replace(/\\%/g, '%')
     .replace(/\\\$/g, '$')
     .replace(/\\&/g, '&')
@@ -67,6 +70,7 @@ function parseExperience(tex: string): Experience[] {
       city: toPlainText(divider === -1 ? '' : roleAndCity.slice(divider + 3)),
       startDate,
       endDate,
+      isCurrent: endDate === 'Present',
       duration: formatDuration(startDate, endDate),
       durationShort: formatDuration(startDate, endDate, true),
       highlights,

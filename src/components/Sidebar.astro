@@ -18,7 +18,7 @@ const nav = [
     <div class="social-links">
       <a href="/github" aria-label="GitHub"><Github size={18} /></a>
       <a href="/linkedin" aria-label="LinkedIn"><Linkedin size={18} /></a>
-      <a href="mailto:hello@cameronhildebrandt.dev" aria-label="Email Cameron"><Mail size={18} /></a>
+      <a href="mailto:cameronhildebrandt@icloud.com" aria-label="Email Cameron"><Mail size={18} /></a>
     </div>
     <button class="theme-toggle" data-theme-toggle type="button" aria-label="Switch colour theme"><Sun class="theme-toggle__sun" size={16} aria-hidden="true" /><Moon class="theme-toggle__moon" size={16} aria-hidden="true" /><span>Theme</span></button>
   </div>
@@ -27,7 +27,7 @@ const nav = [
   <a class="mobile-logo" href="/#top" aria-label="Cameron Hildebrandt, home"><img src="/favicon.svg" width="42" height="42" alt="" /></a>
   <div class="mobile-menu">
     <button id="mobile-menu-toggle" type="button" aria-controls="mobile-navigation" aria-expanded="false"><Menu size={22} aria-hidden="true" /><span class="sr-only">Open navigation</span></button>
-    <nav id="mobile-navigation" aria-label="Mobile navigation"><ul>{nav.map((item, index) => <li style={`--menu-open-delay:${80 + index * 45}ms;--menu-close-delay:${(nav.length - index) * 35}ms`}><a href={item.href} data-section={item.href.startsWith('/#') ? item.href.slice(2) : undefined} data-resume-link={item.label === 'Resume' ? '' : undefined} class:list={['', item.active && 'is-active']}>{item.label}</a></li>)}</ul><div class="mobile-menu__footer"><p class="availability"><span class="availability__text"><span class="availability__primary"><span class="availability__indicator" aria-hidden="true"></span>Edmonton, AB</span><span>Open to remote</span></span></p><div class="social-links"><a href="/github" aria-label="GitHub"><Github size={18} /></a><a href="/linkedin" aria-label="LinkedIn"><Linkedin size={18} /></a><a href="mailto:hello@cameronhildebrandt.dev" aria-label="Email Cameron"><Mail size={18} /></a></div><button class="theme-toggle" data-theme-toggle type="button" aria-label="Switch colour theme"><Sun class="theme-toggle__sun" size={16} aria-hidden="true" /><Moon class="theme-toggle__moon" size={16} aria-hidden="true" /><span>Theme</span></button></div></nav>
+    <nav id="mobile-navigation" aria-label="Mobile navigation"><ul>{nav.map((item, index) => <li style={`--menu-open-delay:${80 + index * 45}ms;--menu-close-delay:${(nav.length - index) * 35}ms`}><a href={item.href} data-section={item.href.startsWith('/#') ? item.href.slice(2) : undefined} data-resume-link={item.label === 'Resume' ? '' : undefined} class:list={['', item.active && 'is-active']}>{item.label}</a></li>)}</ul><div class="mobile-menu__footer"><p class="availability"><span class="availability__text"><span class="availability__primary"><span class="availability__indicator" aria-hidden="true"></span>Edmonton, AB</span><span>Open to remote</span></span></p><div class="social-links"><a href="/github" aria-label="GitHub"><Github size={18} /></a><a href="/linkedin" aria-label="LinkedIn"><Linkedin size={18} /></a><a href="mailto:cameronhildebrandt@icloud.com" aria-label="Email Cameron"><Mail size={18} /></a></div><button class="theme-toggle" data-theme-toggle type="button" aria-label="Switch colour theme"><Sun class="theme-toggle__sun" size={16} aria-hidden="true" /><Moon class="theme-toggle__moon" size={16} aria-hidden="true" /><span>Theme</span></button></div></nav>
   </div>
 </header>
 <script>
