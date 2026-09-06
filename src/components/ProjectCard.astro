@@ -1,16 +1,42 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import { ArrowUpRight } from 'lucide-astro';
-interface Props { project: CollectionEntry<'projects'>; }
-const { project } = Astro.props;
+import CopyCharm from './CopyCharm.astro';
+import projectImage from '../assets/arduino-project.jpg';
+interface Props { project: CollectionEntry<'projects'>; fadeBottom?: boolean; }
+const { project, fadeBottom = false } = Astro.props;
 const projectType = project.data.projectType ?? 'Selected work';
 ---
-<article class="project-card">
-  {project.data.image && <div class="project-card__media"><img src={project.data.image} alt={project.data.imageAlt ?? ''} loading="lazy" decoding="async" /></div>}
+<article class:list={['project-card', fadeBottom && 'project-card--fade-bottom']}>
+  <div class="project-card__media"><Image src={projectImage} alt={project.data.imageAlt ?? 'Arduino Uno board on a dark surface'} widths={[480, 720, 960]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" decoding="async" /></div>
   <div class="project-card__content">
     <div class="project-card__top"><p class="mono">{projectType}</p><ArrowUpRight aria-hidden="true" size={18} /></div>
     <h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3>
     <p>{project.data.description}</p>
-    <ul class="tag-list" aria-label="Technologies used">{project.data.technologies.map((technology) => <li>{technology}</li>)}</ul>
+    <ul class="tag-list" aria-label="Technologies used">{project.data.technologies.map((technology) => <li class="charm-item"><CopyCharm label={technology} /></li>)}</ul>
   </div>
 </article>
+
+<style>
+  .project-card { display:flex; flex-direction:column; min-height:0; }
+  .project-card::after { background:linear-gradient(120deg,rgb(235,51,69),rgb(234,63,237)); border-radius:inherit; content:""; inset:0; mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); mask-composite:exclude; opacity:0; padding:2px; pointer-events:none; position:absolute; transition:opacity .2s ease; }
+  .project-card--fade-bottom { mask-image:linear-gradient(to bottom,#000 0%,#000 calc(100% - 130px),transparent 100%); -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 calc(100% - 130px),transparent 100%); }
+  .project-card--fade-bottom::before { background:linear-gradient(to bottom,transparent,var(--bg) 80%); bottom:0; content:""; height:130px; left:0; pointer-events:none; position:absolute; right:0; z-index:2; }
+  .project-card:hover { background:var(--surface-strong); border-color:transparent; transform:translateY(-3px); }
+  .project-card:hover::after { opacity:1; }
+  .project-card__media { bottom:200px; height:auto; left:0; position:absolute; right:0; top:0; }
+  .project-card__media::after { display:none; }
+  .project-card__media :global(img) { height:100%; mask-image:linear-gradient(to bottom,#000 0%,#000 30%,rgba(0,0,0,.82) 58%,transparent 100%); -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 30%,rgba(0,0,0,.82) 58%,transparent 100%); object-fit:cover; width:100%; }
+  .project-card__content { min-height:0; padding:clamp(9.5rem,18vw,12rem) 1.5rem 1.5rem; }
+  .project-card__top { margin-top:0; }
+
+  @media (max-width:760px) {
+    .project-card__content { padding:7.25rem .8rem 1rem; }
+    .project-card h3 { font-size:1.05rem; margin:1rem 0 .45rem; }
+    .project-card__content > p { font-size:.66rem; line-height:1.42; }
+    .project-card__top :global(.mono) { font-size:.56rem; }
+    .tag-list { gap:.25rem; margin-top:.75rem; }
+    .tag-list :global(.copy-charm) { font-size:.5rem; padding:.22rem .35rem; }
+  }
+</style>

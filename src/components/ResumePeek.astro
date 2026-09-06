@@ -1,4 +1,4 @@
-<a class="resume-peek" href="/resume/" aria-label="Open resume">
+<a class="resume-peek" data-resume-peek href="/resume/" aria-label="Open resume">
   <span class="resume-peek__eyebrow">Resume</span>
   <strong>Cameron Hildebrandt</strong>
   <span>Full-Stack Software Engineer</span>
@@ -6,3 +6,40 @@
   <span class="resume-peek__line"></span>
   <span class="resume-peek__line resume-peek__line--short"></span>
 </a>
+
+<script>
+  const resumePeek = document.querySelector<HTMLElement>('[data-resume-peek]');
+  const resumePeekPrompt = document.querySelector<HTMLElement>('[data-resume-peek-prompt]');
+  const updateResumePeek = () => {
+    const atBottom = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight) <= 200;
+    resumePeek?.classList.toggle('is-prominent', atBottom);
+    resumePeekPrompt?.classList.toggle('is-visible', atBottom);
+  };
+  updateResumePeek();
+  window.addEventListener('scroll', updateResumePeek, { passive: true });
+  window.addEventListener('resize', updateResumePeek);
+</script>
+
+<style>
+  .resume-peek__eyebrow { margin-bottom:-.24rem; }
+  :global(.resume-peek-prompt) { bottom:14rem; color:var(--muted); font-family:"SFMono-Regular",Consolas,monospace; font-size:.88rem; left:calc((100% - 17rem) / 2); line-height:1.45; opacity:0; pointer-events:none; position:fixed; text-align:center; transform:translate(-50%,.6rem); transition:opacity .3s ease,transform .38s cubic-bezier(.2,.8,.2,1); width:min(22rem,calc(100vw - 2rem)); z-index:4; }
+  :global(.resume-peek-prompt.is-visible) { opacity:1; transform:translate(-50%,0); }
+  :global(.resume-peek-prompt__content) { align-items:flex-end; display:flex; gap:.7rem; justify-content:center; }
+  :global(.resume-peek-prompt__content svg) { flex:0 0 auto; height:1.55rem; overflow:visible; transform:translateY(10px) scaleX(-1); width:1.75rem; }
+  :global(.resume-peek-prompt__content path) { fill:none; stroke:url(#resume-arrow-gradient); stroke-linecap:round; stroke-linejoin:round; stroke-width:1.65; }
+  :global(.resume-peek-prompt__content svg:last-child) { transform:translateY(10px); }
+  .resume-peek.is-prominent { transform:translateX(-50%) scale(1.56); }
+  .resume-peek.is-prominent:hover { transform:translateX(-50%) translateY(-2.7rem) scale(1.56); }
+
+  @media (max-width:760px) {
+    .resume-peek { bottom:-9.5rem; gap:.22rem; padding:1rem 1.25rem; width:min(17rem,calc(100vw - 4rem)); }
+    .resume-peek strong { font-size:1.18rem; }
+    .resume-peek > span:not(.resume-peek__eyebrow):not(.resume-peek__line) { font-size:.72rem; }
+    .resume-peek hr { margin:.7rem 0 .25rem; }
+    :global(.resume-peek-prompt) { bottom:8rem; font-size:.72rem; left:50%; width:min(16rem,calc(100vw - 2rem)); }
+    :global(.resume-peek-prompt__content) { gap:.45rem; }
+    :global(.resume-peek-prompt__content svg) { height:1.3rem; width:1.5rem; }
+    .resume-peek.is-prominent { transform:translateX(-50%) scale(1.22); }
+    .resume-peek.is-prominent:hover { transform:translateX(-50%) translateY(-2.2rem) scale(1.22); }
+  }
+</style>
