@@ -1,8 +1,11 @@
 ---
-import { ArrowUpRight } from 'lucide-astro';
-interface Props { href: string; variant?: 'primary' | 'quiet'; external?: boolean; }
-const { href, variant = 'primary', external = false } = Astro.props;
+import { ArrowUpRight, Download, FileCode, FileText, FolderKanban, Github, Home, Linkedin } from 'lucide-astro';
+type ButtonIcon = 'arrow' | 'code' | 'download' | 'github' | 'home' | 'linkedin' | 'projects' | 'resume';
+interface Props { href: string; variant?: 'primary' | 'quiet'; external?: boolean; icon?: ButtonIcon; }
+const { href, variant = 'primary', external = false, icon = 'arrow' } = Astro.props;
+const icons = { arrow: ArrowUpRight, code: FileCode, download: Download, github: Github, home: Home, linkedin: Linkedin, projects: FolderKanban, resume: FileText };
+const Icon = icons[icon];
 ---
 <a class:list={['button-link', variant === 'quiet' && 'button-link--quiet']} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}>
-  <slot /> <ArrowUpRight aria-hidden="true" size={16} strokeWidth={1.75} />
+  <Icon aria-hidden="true" size={15} strokeWidth={1.8} /> <slot />
 </a>

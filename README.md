@@ -33,7 +33,7 @@ Add a project by creating `src/content/projects/your-slug.mdx` with the frontmat
 
 Add writing in `src/content/writing/`. The writing collection is MDX-powered and published posts appear at `/writing/`; set `draft: false` when ready.
 
-Replace the placeholder experience entries in `src/data/experience.ts`, social URLs in `src/components/Sidebar.astro` and `src/pages/index.astro`, and add `public/resume.pdf` for the résumé download.
+Replace the placeholder experience entries in `src/data/experience.ts`, social URLs in `src/components/Sidebar.astro` and `src/pages/index.astro`, and add `public/resume.pdf` for the resume download.
 
 ## Deployment
 
