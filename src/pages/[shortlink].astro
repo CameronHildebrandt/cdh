@@ -1,0 +1,13 @@
+---
+import redirects from '../data/redirects.json';
+
+export function getStaticPaths() {
+  return Object.entries(redirects).map(([shortlink, destination]) => ({
+    params: { shortlink },
+    props: { destination },
+  }));
+}
+
+const { destination } = Astro.props;
+return Astro.redirect(destination, 301);
+---

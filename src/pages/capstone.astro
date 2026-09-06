@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ButtonLink from '../components/ButtonLink.astro';
+---
+<BaseLayout title="Pixel Ratio for Occluded Vehicles — Paper" description="Read the Pixel Ratio for Occluded Vehicles undergraduate capstone paper.">
+  <article class="page capstone">
+    <header class="page-intro">
+      <p class="eyebrow">Undergraduate capstone / University of Alberta</p>
+      <h1>Pixel Ratio for Occluded Vehicles</h1>
+      <p>Read the full paper, including methodology, evaluation, references, and future work.</p>
+      <div class="button-row"><ButtonLink href="/capstone-presentation.pdf" external variant="quiet">View presentation</ButtonLink><ButtonLink href="/capstone.pdf" external>Download PDF</ButtonLink></div>
+    </header>
+    <section class="paper" aria-label="Capstone paper preview">
+      <iframe src="/capstone.pdf#view=FitH" title="Pixel Ratio for Occluded Vehicles paper"></iframe>
+      <p>Your browser cannot display this PDF. <a href="/capstone.pdf">Download the capstone paper.</a></p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .capstone { padding-bottom:4rem; }
+  .paper { background:var(--surface); border:1px solid var(--border); border-radius:1rem; margin-top:3rem; overflow:hidden; }
+  .paper iframe { background:#fff; border:0; display:block; height:min(82vh,68rem); width:100%; }
+  .paper p { margin:0; padding:1rem 1.25rem; }
+  @media (max-width:760px) { .paper iframe { height:70vh; } }
+</style>

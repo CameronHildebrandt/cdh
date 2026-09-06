@@ -3,10 +3,11 @@ import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import { ArrowUpRight } from 'lucide-astro';
 import CopyCharm from './CopyCharm.astro';
-import projectImage from '../assets/arduino-project.jpg';
+import { getProjectImage } from '../data/project-images';
 interface Props { project: CollectionEntry<'projects'>; fadeBottom?: boolean; }
 const { project, fadeBottom = false } = Astro.props;
 const projectType = project.data.projectType ?? 'Selected work';
+const projectImage = getProjectImage(project.id);
 ---
 <article class:list={['project-card', fadeBottom && 'project-card--fade-bottom']}>
   <div class="project-card__media"><Image src={projectImage} alt={project.data.imageAlt ?? 'Arduino Uno board on a dark surface'} widths={[480, 720, 960]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" decoding="async" /></div>
