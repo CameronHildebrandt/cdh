@@ -7,6 +7,7 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     published: z.coerce.date(),
+    priority: z.number().default(0),
     featured: z.boolean().default(false),
     projectType: z.string().default("Selected work"),
     technologies: z.array(z.string()),

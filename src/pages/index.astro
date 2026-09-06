@@ -8,7 +8,7 @@ import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import ResumePeek from '../components/ResumePeek.astro';
 import CopyCharm from '../components/CopyCharm.astro';
 import { ArrowDown } from 'lucide-astro';
-const projects = (await getCollection('projects')).filter((project) => project.data.featured).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+const projects = (await getCollection('projects')).filter((project) => project.data.featured).sort((a, b) => b.data.priority - a.data.priority || b.data.published.valueOf() - a.data.published.valueOf());
 ---
 <BaseLayout title="Cameron Hildebrandt — Software Engineer" description="Personal site of Cameron Hildebrandt, a software engineer.">
   <div class="page" id="top">
