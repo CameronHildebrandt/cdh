@@ -7,6 +7,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import ResumePeek from '../components/ResumePeek.astro';
 import CopyCharm from '../components/CopyCharm.astro';
+import { ArrowDown } from 'lucide-astro';
 const projects = (await getCollection('projects')).filter((project) => project.data.featured).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
 ---
 <BaseLayout title="Cameron Hildebrandt — Software Engineer" description="Personal site of Cameron Hildebrandt, a software engineer.">
@@ -16,8 +17,8 @@ const projects = (await getCollection('projects')).filter((project) => project.d
       <p class="hero__tagline gradient-text">Full-Stack Software Engineer</p>
       <ul class="hero__charms" aria-label="Areas of focus"><li class="charm-item"><CopyCharm label="AI" /></li><li class="charm-item"><CopyCharm label="ML" /></li><li class="charm-item"><CopyCharm label="TypeScript" /></li><li class="charm-item"><CopyCharm label="Angular" /></li><li class="charm-item"><CopyCharm label="Node.js" /></li></ul>
       <div class="button-row">
-        <ButtonLink href="https://github.com/your-handle" external icon="github">GitHub <span class="sr-only">(replace URL)</span></ButtonLink>
-        <ButtonLink href="https://www.linkedin.com/in/your-handle" external variant="quiet" icon="linkedin">LinkedIn <span class="sr-only">(replace URL)</span></ButtonLink>
+        <ButtonLink href="/github" icon="github">GitHub</ButtonLink>
+        <ButtonLink href="/linkedin" variant="quiet" icon="linkedin">LinkedIn</ButtonLink>
       </div>
     </section>
     <section id="about" aria-labelledby="about-title">
@@ -34,6 +35,7 @@ const projects = (await getCollection('projects')).filter((project) => project.d
       <div class="project-preview"><div class="project-grid">{projects.slice(0, 4).map((project, index) => <ProjectCard project={project} fadeBottom={index >= 2} />)}</div><div class="project-preview__more"><ButtonLink href="/projects/" variant="quiet" icon="projects">More projects</ButtonLink></div></div>
     </section>
   </div>
+  <div class="scroll-hint" data-scroll-hint aria-hidden="true"><ArrowDown size={16} strokeWidth={1.8} /></div>
   <div class="resume-peek-prompt" data-resume-peek-prompt aria-hidden="true"><span class="resume-peek-prompt__content"><svg viewBox="0 0 24 20"><defs><linearGradient id="resume-arrow-gradient" x1="0" x2="1"><stop stop-color="rgb(235,51,69)" /><stop offset="1" stop-color="rgb(234,63,237)" /></linearGradient></defs><path d="M3 3c9 3 14-4 12 12m0 0-4-3m4 3 2-4" /></svg><span>TL;DR?<br />Check out my resume!</span><svg viewBox="0 0 24 20"><path d="M3 3c9 3 14-4 12 12m0 0-4-3m4 3 2-4" /></svg></span></div>
   <ResumePeek />
 </BaseLayout>
@@ -42,8 +44,18 @@ const projects = (await getCollection('projects')).filter((project) => project.d
   .about-grid { gap:.75rem; grid-template-columns:minmax(0,1fr); }
   .about-grid > div > p { margin-bottom:1.45rem; }
   .about-grid .mono { margin-bottom:0; }
+  #experience > .button-row { justify-content:center; }
   .project-preview { position:relative; }
   .project-preview__more { display:flex; justify-content:center; margin-top:-1.35rem; position:relative; z-index:3; }
-  @media (max-width:760px) { .project-preview .project-grid { gap:.6rem; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  .scroll-hint { display:none; }
+  @media (max-width:760px) { .project-preview .project-grid { gap:.6rem; grid-template-columns:repeat(2,minmax(0,1fr)); } .scroll-hint { align-items:center; animation:scroll-hint-enter .35s ease 2s forwards,scroll-hint-bounce 1.7s ease-in-out 2.45s infinite; background:color-mix(in srgb,var(--bg) 78%,transparent); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid var(--line); border-radius:50%; bottom:6rem; color:var(--muted); display:flex; height:2.3rem; justify-content:center; left:50%; opacity:0; pointer-events:none; position:fixed; transform:translateX(-50%); transition:opacity .2s ease; width:2.3rem; z-index:4; } .scroll-hint.is-hidden { animation:none; opacity:0; } }
+  @keyframes scroll-hint-enter { to { opacity:1; } }
+  @keyframes scroll-hint-bounce { 0%,100% { margin-bottom:0; } 50% { margin-bottom:.45rem; } }
   .page { padding-bottom:15rem; }
 </style>
+
+<script>
+  const scrollHint = document.querySelector<HTMLElement>('[data-scroll-hint]');
+  const dismissScrollHint = () => scrollHint?.classList.add('is-hidden');
+  window.addEventListener('scroll', dismissScrollHint, { passive:true, once:true });
+</script>

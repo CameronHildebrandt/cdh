@@ -48,13 +48,14 @@ Verify `https://chil.dev` lands on the canonical site with HTTPS. You can make `
 
 Every push to the production branch automatically deploys to the live custom domain. Pull requests and non-production branches receive unique Pages preview deployments; use those URLs to review changes before merging.
 
-## Future keyword redirects with a Worker
+## Permanent keyword redirects
 
-The static [public/redirects.json](public/redirects.json) file is the intended source shape for keys such as `github` and `linkedin`. When short-link redirects are ready:
+Cloudflare Pages reads the generated [public/_redirects](public/_redirects) file from the deployed static output. It currently provides permanent `301` redirects for `/github` and `/linkedin`; no Worker, database, or additional Cloudflare product is required.
 
-1. Create a free Cloudflare Worker for the `chil.dev` zone.
-2. Add a small, versioned map (or import the JSON at build time) that looks up the first path segment and returns a permanent `301`/`308` redirect.
-3. Bind the Worker to the `chil.dev/*` route, and leave unknown paths to redirect to the canonical portfolio or return a simple 404, according to your preference.
-4. Keep analytics and storage out of this first Worker; no database is necessary.
+To add another short link, add one property in [src/data/redirects.json](src/data/redirects.json):
 
-Test `/github` and `/linkedin` with `curl -I` before publishing, and update the placeholder destinations in `public/redirects.json` first.
+```json
+"keyword": "https://destination.example"
+```
+
+Commit and push the change. After Pages deploys, verify it with `curl -I https://cameronhildebrandt.dev/keyword`.

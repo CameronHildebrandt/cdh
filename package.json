@@ -6,7 +6,8 @@
   "packageManager": "yarn@3.6.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "generate:redirects": "node scripts/generate-redirects.mjs",
+    "build": "yarn generate:redirects && astro check && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "sharp": "^0.35.4",
     "typescript": "^6.0.0"
   }
 }

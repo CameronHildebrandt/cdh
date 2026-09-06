@@ -33,8 +33,8 @@ Add a project by creating `src/content/projects/your-slug.mdx` with the frontmat
 
 Add writing in `src/content/writing/`. The writing collection is MDX-powered and published posts appear at `/writing/`; set `draft: false` when ready.
 
-Replace the placeholder experience entries in `src/data/experience.ts`, social URLs in `src/components/Sidebar.astro` and `src/pages/index.astro`, and add `public/resume.pdf` for the resume download.
+Professional experience is parsed from `public/resume.tex`. Add or edit permanent short links in `src/data/redirects.json`; `yarn build` generates the Cloudflare Pages `_redirects` rules automatically, while Astro serves the same redirects locally. Add `public/resume.pdf` for the resume download.
 
 ## Deployment
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for the complete free Cloudflare Pages setup and the planned redirect Worker architecture.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the complete free Cloudflare Pages setup.
