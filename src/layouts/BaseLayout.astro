@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import { Clipboard } from 'lucide-astro';
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, 'https://cameronhildebrandt.dev');
@@ -31,5 +32,37 @@ const canonical = new URL(Astro.url.pathname, 'https://cameronhildebrandt.dev');
     <SiteHeader />
     <Sidebar currentPath={Astro.url.pathname} />
     <main id="main-content"><slot /></main>
+    <div class="copy-toast" role="status" aria-live="polite" aria-atomic="true"><Clipboard aria-hidden="true" size={14} strokeWidth={1.8} /><span class="copy-toast__message"></span></div>
+    <script>
+      const toast = document.querySelector<HTMLElement>('.copy-toast');
+      const toastMessage = document.querySelector<HTMLElement>('.copy-toast__message');
+      let toastTimeout: number | undefined;
+      const showToast = (message: string) => {
+        if (!toast) return;
+        if (toastMessage) toastMessage.textContent = message;
+        toast.classList.add('is-visible');
+        window.clearTimeout(toastTimeout);
+        toastTimeout = window.setTimeout(() => toast.classList.remove('is-visible'), 1700);
+      };
+      const copy = async (value: string) => {
+        try {
+          await navigator.clipboard.writeText(value);
+        } catch {
+          const field = document.createElement('textarea');
+          field.value = value;
+          field.style.position = 'fixed';
+          field.style.opacity = '0';
+          document.body.append(field);
+          field.select();
+          document.execCommand('copy');
+          field.remove();
+        }
+        showToast(`${value} copied`);
+      };
+      document.addEventListener('click', (event) => {
+        const charm = (event.target as Element).closest<HTMLElement>('[data-copy-charm]');
+        if (charm) copy(charm.dataset.copyCharm ?? '');
+      });
+    </script>
   </body>
 </html>

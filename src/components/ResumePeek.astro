@@ -1,4 +1,4 @@
-<a class="resume-peek" href="/resume/" aria-label="Open resume">
+<a class="resume-peek" data-resume-peek href="/resume/" aria-label="Open resume">
   <span class="resume-peek__eyebrow">Resume</span>
   <strong>Cameron Hildebrandt</strong>
   <span>Full-Stack Software Engineer</span>
@@ -6,3 +6,19 @@
   <span class="resume-peek__line"></span>
   <span class="resume-peek__line resume-peek__line--short"></span>
 </a>
+
+<script>
+  const resumePeek = document.querySelector<HTMLElement>('[data-resume-peek]');
+  const updateResumePeek = () => {
+    const atBottom = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight) <= 200;
+    resumePeek?.classList.toggle('is-prominent', atBottom);
+  };
+  updateResumePeek();
+  window.addEventListener('scroll', updateResumePeek, { passive: true });
+  window.addEventListener('resize', updateResumePeek);
+</script>
+
+<style>
+  .resume-peek.is-prominent { transform:translateX(-50%) scale(1.56); }
+  .resume-peek.is-prominent:hover { transform:translateX(-50%) translateY(-2.7rem) scale(1.56); }
+</style>

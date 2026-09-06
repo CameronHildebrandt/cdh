@@ -1,0 +1,18 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+<button class="copy-charm" data-copy-charm={label} type="button" aria-label={`Copy ${label} to clipboard`}>{label}</button>
+
+<style is:global>
+  .hero__charms .charm-item,.tag-list .charm-item { background:transparent; border:0; padding:0; }
+  .copy-charm { align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:999px; color:var(--muted); cursor:copy; display:inline-flex; font:inherit; font-family:"SFMono-Regular",Consolas,monospace; font-size:.67rem; letter-spacing:.04em; line-height:1; padding:.31rem .56rem; transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease; user-select:none; -webkit-user-select:none; }
+  .copy-charm:hover { background:linear-gradient(100deg,rgb(235,51,69),rgb(234,63,237)); border-color:transparent; color:#fff; transform:translateY(-1px); }
+  .copy-charm:active { background:linear-gradient(100deg,rgb(235,51,69) -20%,rgb(234,63,237) 120%); transform:translateY(0); }
+  .copy-charm:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  .copy-toast { align-items:center; background:color-mix(in srgb,var(--bg) 82%,transparent); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid var(--line); border-radius:999px; box-shadow:0 .5rem 2rem rgba(0,0,0,.16); color:var(--text); display:flex; font-family:"SFMono-Regular",Consolas,monospace; font-size:.72rem; gap:.4rem; left:50%; opacity:0; padding:.55rem .8rem; pointer-events:none; position:fixed; top:1rem; transform:translate(-50%,-.65rem) scale(.96); transition:opacity .2s ease,transform .24s cubic-bezier(.2,.8,.2,1); z-index:20; }
+  .copy-toast.is-visible { opacity:1; transform:translate(-50%,0) scale(1); }
+</style>
