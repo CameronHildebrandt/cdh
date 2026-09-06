@@ -5,9 +5,10 @@
   "type": "module",
   "packageManager": "yarn@3.6.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "yarn generate:resume && astro dev",
     "generate:redirects": "node scripts/generate-redirects.mjs",
-    "build": "yarn generate:redirects && astro check && astro build",
+    "generate:resume": "node scripts/sync-resume.mjs",
+    "build": "yarn generate:redirects && yarn generate:resume && astro check && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

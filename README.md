@@ -33,7 +33,7 @@ Add a project by creating `src/content/projects/your-slug.mdx` with the frontmat
 
 Add writing in `src/content/writing/`. The writing collection is MDX-powered and published posts appear at `/writing/`; set `draft: false` when ready.
 
-Professional experience is parsed from `public/resume.tex`. Add or edit permanent short links in `src/data/redirects.json`; `yarn build` generates the Cloudflare Pages `_redirects` rules automatically, while Astro serves the same redirects locally. Add `public/resume.pdf` for the resume download.
+Professional experience is parsed from `src/data/resume.tex`. It is the canonical TeX source; `yarn dev` and `yarn build` copy it to `public/resume.tex` for download automatically. Add `public/resume.pdf` for the PDF download. Add or edit permanent short links in `src/data/redirects.json`; `yarn build` generates the Cloudflare Pages `_redirects` rules automatically, while Astro serves the same redirects locally.
 
 ## Deployment
 

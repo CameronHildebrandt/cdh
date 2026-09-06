@@ -1,5 +1,4 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import resumeTex from './resume.tex?raw';
 
 export type Experience = {
   startDate: string;
@@ -11,9 +10,6 @@ export type Experience = {
   durationShort: string;
   highlights: string[];
 };
-
-// `process.cwd()` stays at the Astro project root during both dev and prerendering.
-const resumePath = resolve(process.cwd(), 'public/resume.tex');
 
 function toPlainText(value: string) {
   return value
@@ -49,9 +45,10 @@ function formatDuration(startDate: string, endDate: string, compact = false) {
 }
 
 /**
- * The public TeX résumé is the canonical source for professional experience.
+ * The bundled TeX résumé is the canonical source for professional experience.
  * This intentionally understands the compact \resumeHeading/itemize format in
- * public/resume.tex, avoiding a second copy of the same content.
+ * src/data/resume.tex, avoiding a second copy of the same content. The build
+ * copies this source to public/resume.tex for the downloadable version.
  */
 function parseExperience(tex: string): Experience[] {
   const section = tex.match(/\\section\{Experience\}([\s\S]*?)(?=\\section\{|$)/)?.[1] ?? '';
@@ -77,4 +74,4 @@ function parseExperience(tex: string): Experience[] {
   });
 }
 
-export const experience = parseExperience(readFileSync(resumePath, 'utf8'));
+export const experience = parseExperience(resumeTex);
