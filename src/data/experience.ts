@@ -8,6 +8,7 @@ export type Experience = {
   company: string;
   title: string;
   duration: string;
+  durationShort: string;
   highlights: string[];
 };
 
@@ -24,7 +25,7 @@ function toPlainText(value: string) {
     .trim();
 }
 
-function formatDuration(startDate: string, endDate: string) {
+function formatDuration(startDate: string, endDate: string, compact = false) {
   const months: Record<string, number> = {
     jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
     jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
@@ -42,8 +43,8 @@ function formatDuration(startDate: string, endDate: string) {
   const years = Math.floor(totalMonths / 12);
   const remainingMonths = totalMonths % 12;
   return [
-    years && `${years} ${years === 1 ? 'year' : 'years'}`,
-    remainingMonths && `${remainingMonths} ${remainingMonths === 1 ? 'month' : 'months'}`,
+    years && (compact ? `${years}y` : `${years} ${years === 1 ? 'year' : 'years'}`),
+    remainingMonths && (compact ? `${remainingMonths}m` : `${remainingMonths} ${remainingMonths === 1 ? 'month' : 'months'}`),
   ].filter(Boolean).join(' ');
 }
 
@@ -70,6 +71,7 @@ function parseExperience(tex: string): Experience[] {
       startDate,
       endDate,
       duration: formatDuration(startDate, endDate),
+      durationShort: formatDuration(startDate, endDate, true),
       highlights,
     };
   });

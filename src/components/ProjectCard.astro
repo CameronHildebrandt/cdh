@@ -30,4 +30,13 @@ const projectType = project.data.projectType ?? 'Selected work';
   .project-card__media :global(img) { height:100%; mask-image:linear-gradient(to bottom,#000 0%,#000 30%,rgba(0,0,0,.82) 58%,transparent 100%); -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 30%,rgba(0,0,0,.82) 58%,transparent 100%); object-fit:cover; width:100%; }
   .project-card__content { min-height:0; padding:clamp(9.5rem,18vw,12rem) 1.5rem 1.5rem; }
   .project-card__top { margin-top:0; }
+
+  @media (max-width:760px) {
+    .project-card__content { padding:7.25rem .8rem 1rem; }
+    .project-card h3 { font-size:1.05rem; margin:1rem 0 .45rem; }
+    .project-card__content > p { font-size:.66rem; line-height:1.42; }
+    .project-card__top :global(.mono) { font-size:.56rem; }
+    .tag-list { gap:.25rem; margin-top:.75rem; }
+    .tag-list :global(.copy-charm) { font-size:.5rem; padding:.22rem .35rem; }
+  }
 </style>

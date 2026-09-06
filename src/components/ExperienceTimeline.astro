@@ -5,7 +5,7 @@ import { experience } from '../data/experience';
   {experience.map((item, index) => (
     <li class="experience-preview" data-experience-preview role="button" tabindex="0" aria-expanded="false" aria-controls={`experience-timeline-${index}`}>
       <div class="experience-preview__content" id={`experience-timeline-${index}`}>
-          <div class="timeline__date"><p class="mono">{item.startDate} — {item.endDate}</p>{item.duration && <p class="timeline__duration">{item.duration}</p>}</div>
+          <div class="timeline__date"><p class="mono">{item.startDate} — {item.endDate}</p>{item.duration && <p class="timeline__duration"><span class="timeline__duration-full">{item.duration}</span><span class="timeline__duration-short">{item.durationShort}</span></p>}</div>
           <article class="timeline__entry">
             <div><h3>{item.title}</h3><p class="timeline__meta">{item.company}{item.city && ` · ${item.city}`}</p></div>
             <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
@@ -59,10 +59,15 @@ import { experience } from '../data/experience';
   .timeline__entry li { display:list-item; }
   .timeline__date .mono { margin-bottom:.25rem; }
   .timeline__duration { color:var(--muted); font-family:"SFMono-Regular",Consolas,monospace; font-size:.63rem; letter-spacing:.05em; margin:0; }
+  .timeline__duration-short { display:none; }
   .timeline__entry h3 { font-weight:750; }
   .timeline__entry::before { background:linear-gradient(180deg,rgb(235,51,69),rgb(234,63,237)); }
 
   @media (max-width:760px) {
     .experience-preview__content { gap:.5rem; grid-template-columns:1fr; }
+    .timeline__date { align-items:center; display:flex; gap:.45rem; justify-content:space-between; }
+    .timeline__date .mono,.timeline__duration { margin:0; white-space:nowrap; }
+    .timeline__duration-full { display:none; }
+    .timeline__duration-short { display:inline; }
   }
 </style>
