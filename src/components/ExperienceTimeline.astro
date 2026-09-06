@@ -5,7 +5,7 @@ import { experience } from '../data/experience';
   {experience.map((item, index) => (
     <li class="experience-preview" data-experience-preview role="button" tabindex="0" aria-expanded="false" aria-controls={`experience-timeline-${index}`}>
       <div class="experience-preview__content" id={`experience-timeline-${index}`}>
-          <p class="timeline__date mono">{item.startDate} — {item.endDate}</p>
+          <div class="timeline__date"><p class="mono">{item.startDate} — {item.endDate}</p>{item.duration && <p class="timeline__duration">{item.duration}</p>}</div>
           <article class="timeline__entry">
             <div><h3>{item.title}</h3><p class="timeline__meta">{item.company}{item.city && ` · ${item.city}`}</p></div>
             <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
@@ -19,7 +19,12 @@ import { experience } from '../data/experience';
 <script>
   document.documentElement.classList.add('has-js');
   document.querySelectorAll<HTMLElement>('[data-experience-preview]').forEach((preview) => {
+    const content = preview.querySelector<HTMLElement>('.experience-preview__content');
+    const measure = () => preview.style.setProperty('--expanded-height', `${content?.scrollHeight ?? 150}px`);
+    measure();
+
     const toggle = () => {
+      measure();
       const expanded = preview.classList.toggle('is-expanded');
       preview.setAttribute('aria-expanded', String(expanded));
     };
@@ -31,6 +36,7 @@ import { experience } from '../data/experience';
         toggle();
       }
     });
+    window.addEventListener('resize', measure, { passive: true });
   });
 </script>
 
@@ -40,8 +46,9 @@ import { experience } from '../data/experience';
   .experience-preview:hover { background:var(--surface); border-color:var(--line); }
   .experience-preview:active { background:var(--surface-strong); transform:scale(.995); }
   .experience-preview:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
-  .experience-preview__content { display:grid; gap:1.25rem; grid-template-columns:10rem minmax(0,1fr); padding:1rem; transition:max-height .45s cubic-bezier(.2,.7,.2,1); }
+  .experience-preview__content { display:grid; gap:1.25rem; grid-template-columns:10rem minmax(0,1fr); padding:1rem; transition:max-height .52s cubic-bezier(.2,.75,.2,1),opacity .25s ease; }
   :global(.has-js) .experience-preview:not(.is-expanded) .experience-preview__content { max-height:150px; overflow:hidden; }
+  :global(.has-js) .experience-preview.is-expanded .experience-preview__content { max-height:var(--expanded-height); }
   .experience-preview__fade { align-items:flex-end; background:linear-gradient(to bottom,transparent,var(--bg) 82%); bottom:0; display:none; justify-content:center; left:0; padding:3rem 1rem .8rem; pointer-events:none; position:absolute; right:0; }
   :global(.has-js) .experience-preview:not(.is-expanded) .experience-preview__fade { display:flex; }
   .experience-preview__fade span { color:var(--muted); font-family:"SFMono-Regular",Consolas,monospace; font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; }
@@ -50,6 +57,10 @@ import { experience } from '../data/experience';
   .timeline__meta { margin-top:0; }
   .timeline__entry ul { color:var(--muted); list-style:disc outside; margin:.85rem 0 0; padding-left:1.1rem; }
   .timeline__entry li { display:list-item; }
+  .timeline__date .mono { margin-bottom:.25rem; }
+  .timeline__duration { color:var(--muted); font-family:"SFMono-Regular",Consolas,monospace; font-size:.63rem; letter-spacing:.05em; margin:0; }
+  .timeline__entry h3 { font-weight:750; }
+  .timeline__entry::before { background:linear-gradient(180deg,rgb(235,51,69),rgb(234,63,237)); }
 
   @media (max-width:760px) {
     .experience-preview__content { gap:.5rem; grid-template-columns:1fr; }

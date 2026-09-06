@@ -7,6 +7,7 @@ export type Experience = {
   city: string;
   company: string;
   title: string;
+  duration: string;
   highlights: string[];
 };
 
@@ -21,6 +22,29 @@ function toPlainText(value: string) {
     .replace(/~/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function formatDuration(startDate: string, endDate: string) {
+  const months: Record<string, number> = {
+    jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+    jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
+  };
+  const parseMonth = (date: string) => {
+    if (date === 'Present') return new Date();
+    const [, month, year] = date.match(/^([A-Za-z]+)\.?\s+(\d{4})$/) ?? [];
+    return month && year ? new Date(Number(year), months[month.slice(0, 3).toLowerCase()] ?? 0, 1) : null;
+  };
+  const start = parseMonth(startDate);
+  const end = parseMonth(endDate);
+  if (!start || !end) return '';
+
+  const totalMonths = Math.max(0, (end.getFullYear() - start.getFullYear()) * 12 + end.getMonth() - start.getMonth());
+  const years = Math.floor(totalMonths / 12);
+  const remainingMonths = totalMonths % 12;
+  return [
+    years && `${years} ${years === 1 ? 'year' : 'years'}`,
+    remainingMonths && `${remainingMonths} ${remainingMonths === 1 ? 'month' : 'months'}`,
+  ].filter(Boolean).join(' ');
 }
 
 /**
@@ -45,6 +69,7 @@ function parseExperience(tex: string): Experience[] {
       city: toPlainText(divider === -1 ? '' : roleAndCity.slice(divider + 3)),
       startDate,
       endDate,
+      duration: formatDuration(startDate, endDate),
       highlights,
     };
   });
