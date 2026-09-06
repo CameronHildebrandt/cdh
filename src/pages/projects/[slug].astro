@@ -4,11 +4,12 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ButtonLink from '../../components/ButtonLink.astro';
 import CopyCharm from '../../components/CopyCharm.astro';
-import projectImage from '../../assets/arduino-project.jpg';
+import { getProjectImage } from '../../data/project-images';
 export async function getStaticPaths() { const projects = await getCollection('projects'); return projects.map((project) => ({ params: { slug: project.id }, props: { project } })); }
 const { project } = Astro.props;
 const { Content } = await render(project);
+const projectImage = getProjectImage(project.id);
 ---
 <BaseLayout title={`${project.data.title} — Cameron Hildebrandt`} description={project.data.description}>
-  <article class="page"><header class="page-intro"><p class="eyebrow">Project / {project.data.published.getFullYear()}</p><h1>{project.data.title}</h1><p>{project.data.description}</p><ul class="tag-list" aria-label="Technologies used">{project.data.technologies.map((technology) => <li class="charm-item"><CopyCharm label={technology} /></li>)}</ul><div class="button-row">{project.data.links.map((link) => <ButtonLink href={link.href} external variant="quiet">{link.label}</ButtonLink>)}</div></header><figure class="project-hero"><Image src={projectImage} alt={project.data.imageAlt ?? 'Arduino Uno board on a dark surface'} widths={[720, 1200, 1600]} sizes="(max-width: 760px) 100vw, 76rem" loading="eager" decoding="async" /></figure><div class="prose"><Content /></div></article>
+  <article class="page"><header class="page-intro"><p class="eyebrow">Project / {project.data.published.getFullYear()}</p><h1>{project.data.title}</h1><p>{project.data.description}</p><ul class="tag-list" aria-label="Technologies used">{project.data.technologies.map((technology) => <li class="charm-item"><CopyCharm label={technology} /></li>)}</ul><div class="button-row">{project.data.links.map((link) => <ButtonLink href={link.href} external={link.href.startsWith('http') || link.href.endsWith('.pdf')} variant="quiet">{link.label}</ButtonLink>)}</div></header><figure class="project-hero"><Image src={projectImage} alt={project.data.imageAlt ?? 'Arduino Uno board on a dark surface'} widths={[720, 1200, 1600]} sizes="(max-width: 760px) 100vw, 76rem" loading="eager" decoding="async" /></figure><div class="prose"><Content /></div></article>
 </BaseLayout>

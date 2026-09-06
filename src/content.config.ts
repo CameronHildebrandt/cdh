@@ -11,7 +11,7 @@ const projects = defineCollection({
     projectType: z.string().default("Selected work"),
     technologies: z.array(z.string()),
     links: z
-      .array(z.object({ label: z.string(), href: z.string().url() }))
+      .array(z.object({ label: z.string(), href: z.string().min(1) }))
       .default([]),
     image: z.string().optional(),
     imageAlt: z.string().optional(),

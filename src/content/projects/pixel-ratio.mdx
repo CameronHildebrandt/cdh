@@ -1,0 +1,50 @@
+---
+title: "Pixel Ratio for Occluded Vehicles"
+description: "An occlusion-aware training signal for monocular 3D vehicle detection, designed and evaluated on the KITTI dataset."
+published: 2023-04-01
+featured: true
+projectType: "Capstone Project"
+technologies: ["Computer vision", "YOLO3D", "ResNet-18", "Detectron2", "KITTI"]
+image: "https://images.unsplash.com/photo-1649959149294-d0bbf3d4b9d2?auto=format&fit=crop&w=1600&q=80"
+imageAlt: "A street scene with a highlighted vehicle and Pixel Ratio calculation overlay"
+links:
+  - label: "View presentation"
+    href: "/capstone-presentation.pdf"
+  - label: "Read the paper"
+    href: "/capstone"
+---
+
+An undergraduate capstone completed with Paul Saunders, Khalid Al-Mahrezi, and Curtis Kennedy at the University of Alberta. We investigated whether an occlusion-aware training signal could improve monocular 3D bounding-box estimation for cars—using a single RGB image, without depth data.
+
+## The problem
+
+For an autonomous system, a partly hidden vehicle is still a vehicle that matters. But estimating its 3D position, dimensions, and orientation from one camera image is difficult: there is no direct depth signal, and occlusion leaves much of the visual evidence missing.
+
+KITTI’s occlusion labels are useful but coarse. Two vehicles marked “heavily occluded” can have very different amounts of their visible surface obscured. We wanted a continuous measure that could help a model prioritize the cases where it has the least information to work with.
+
+## Pixel Ratio
+
+We proposed **Pixel Ratio**: the visible pixel area of a vehicle divided by the area of its 2D bounding box. A lower ratio generally indicates that more of the vehicle is hidden. We combined KITTI’s ground-truth 2D boxes with instance segmentation output from Detectron2 to calculate it across just over 20,000 vehicle samples.
+
+Normalizing by the bounding-box area was important. Raw pixel count is strongly tied to how far a vehicle is from the camera; Pixel Ratio showed virtually no correlation with depth while still tracking the dataset’s occlusion categories.
+
+## How we tested it
+
+We trained baseline and Pixel Ratio-weighted versions of two architectures:
+
+- **YOLO3D**, a geometry-aware pipeline that pairs 2D detections with a CNN to regress 3D vehicle properties. Pixel Ratio was applied to its orientation sub-loss.
+- **ResNet-18**, a task-agnostic baseline used to distinguish the effect of the metric from architecture-specific behaviour.
+
+Using a stratified 80/20 split preserved the distribution of KITTI occlusion classes. We evaluated 3D rotated IoU, average precision, coordinate error, camera-distance error, and orientation error; this also required building a rotated 3D IoU evaluation implementation.
+
+## Results
+
+Pixel Ratio was not a one-size-fits-all improvement to average precision. Across the evaluated models, the overall changes were small and not broadly statistically significant. That result was still valuable: incorporating the signal did not degrade the underlying models’ performance.
+
+The strongest result was a statistically significant reduction in orientation error for the Pixel Ratio-weighted YOLO3D model on highly occluded vehicles. In other words, the metric showed a measurable benefit in one of the scenarios it was designed to address.
+
+## What’s next
+
+Pixel Ratio is an approximation: the ideal denominator would be the vehicle’s full, unobscured pixel area rather than its bounding-box area. Exploring that estimate—and testing the signal across more monocular 3D detection architectures—would be the natural next step.
+
+This work was completed with guidance from University of Alberta domain experts Dr. Ehsan Hashemi, Dr. Arunava Banerjee, and Marcelo Jafett Contreras Cabrera. The full paper and presentation include the methodology, evaluation tables, and references.
