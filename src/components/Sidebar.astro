@@ -5,35 +5,38 @@ const { currentPath } = Astro.props;
 const home = currentPath === '/';
 const nav = [
   { label: 'Home', href: '/#top', active: home },
+  { label: 'About', href: '/#about', active: home },
   { label: 'Experience', href: '/#experience', active: home },
   { label: 'Projects', href: home ? '/#projects' : '/projects/', active: currentPath.startsWith('/projects') },
-  { label: 'Writing', href: '/writing/', active: currentPath.startsWith('/writing') },
-  { label: 'Résumé', href: '/resume/', active: currentPath === '/resume/' },
+  { label: 'Resume', href: '/resume/', active: currentPath === '/resume/' },
 ];
 ---
 <aside class="sidebar" aria-label="Primary navigation">
-  <nav><ul>{nav.map((item) => <li><a href={item.href} data-section={item.href.startsWith('/#') ? item.href.slice(2) : undefined} class:list={['nav-link', item.active && 'is-active']} aria-current={item.active ? 'page' : undefined}>{item.label}</a></li>)}</ul></nav>
+  <nav><ul>{nav.map((item) => <li><a href={item.href} data-section={item.href.startsWith('/#') ? item.href.slice(2) : undefined} data-resume-link={item.label === 'Resume' ? '' : undefined} class:list={['nav-link', item.active && 'is-active']} aria-current={item.active ? 'page' : undefined}>{item.label}</a></li>)}</ul></nav>
   <div class="sidebar__footer">
-    <p class="mono">Available for select work</p>
+    <p class="availability"><span class="availability__text"><span class="availability__primary"><span class="availability__indicator" aria-hidden="true"></span>Edmonton, AB</span><span>Open to remote</span></span></p>
     <div class="social-links">
       <a href="https://github.com/your-handle" aria-label="GitHub (replace URL)" target="_blank" rel="noreferrer"><Github size={18} /></a>
       <a href="https://www.linkedin.com/in/your-handle" aria-label="LinkedIn (replace URL)" target="_blank" rel="noreferrer"><Linkedin size={18} /></a>
       <a href="mailto:hello@cameronhildebrandt.dev" aria-label="Email Cameron"><Mail size={18} /></a>
     </div>
-    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme"><Sun class="theme-toggle__sun" size={16} aria-hidden="true" /><Moon class="theme-toggle__moon" size={16} aria-hidden="true" /><span>Theme</span></button>
+    <button class="theme-toggle" data-theme-toggle type="button" aria-label="Switch colour theme"><Sun class="theme-toggle__sun" size={16} aria-hidden="true" /><Moon class="theme-toggle__moon" size={16} aria-hidden="true" /><span>Theme</span></button>
   </div>
 </aside>
 <header class="mobile-header">
-  <details class="mobile-menu">
-    <summary aria-label="Open navigation"><Menu size={22} aria-hidden="true" /></summary>
-    <nav aria-label="Mobile navigation"><ul>{nav.map((item) => <li><a href={item.href} data-section={item.href.startsWith('/#') ? item.href.slice(2) : undefined} class:list={['', item.active && 'is-active']}>{item.label}</a></li>)}</ul></nav>
-  </details>
+  <a class="mobile-logo" href="/#top" aria-label="Cameron Hildebrandt, home"><img src="/favicon.svg" width="42" height="42" alt="" /></a>
+  <div class="mobile-menu">
+    <button id="mobile-menu-toggle" type="button" aria-controls="mobile-navigation" aria-expanded="false"><Menu size={22} aria-hidden="true" /><span class="sr-only">Open navigation</span></button>
+    <nav id="mobile-navigation" aria-label="Mobile navigation"><ul>{nav.map((item, index) => <li style={`--menu-open-delay:${80 + index * 45}ms;--menu-close-delay:${(nav.length - index) * 35}ms`}><a href={item.href} data-section={item.href.startsWith('/#') ? item.href.slice(2) : undefined} data-resume-link={item.label === 'Resume' ? '' : undefined} class:list={['', item.active && 'is-active']}>{item.label}</a></li>)}</ul><div class="mobile-menu__footer"><p class="availability"><span class="availability__text"><span class="availability__primary"><span class="availability__indicator" aria-hidden="true"></span>Edmonton, AB</span><span>Open to remote</span></span></p><div class="social-links"><a href="https://github.com/your-handle" aria-label="GitHub (replace URL)" target="_blank" rel="noreferrer"><Github size={18} /></a><a href="https://www.linkedin.com/in/your-handle" aria-label="LinkedIn (replace URL)" target="_blank" rel="noreferrer"><Linkedin size={18} /></a><a href="mailto:hello@cameronhildebrandt.dev" aria-label="Email Cameron"><Mail size={18} /></a></div><button class="theme-toggle" data-theme-toggle type="button" aria-label="Switch colour theme"><Sun class="theme-toggle__sun" size={16} aria-hidden="true" /><Moon class="theme-toggle__moon" size={16} aria-hidden="true" /><span>Theme</span></button></div></nav>
+  </div>
 </header>
 <script>
   const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-section]')];
+  const resumeLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-resume-link]')];
   const sections = links.map((link) => document.getElementById(link.dataset.section ?? '')).filter((section): section is HTMLElement => Boolean(section));
 
   const setActive = (id: string) => {
+    resumeLinks.forEach((link) => { link.classList.remove('is-active'); link.removeAttribute('aria-current'); });
     links.forEach((link) => {
       const active = link.dataset.section === id;
       link.classList.toggle('is-active', active);
@@ -42,23 +45,43 @@ const nav = [
     });
   };
 
+  const setResumeActive = () => {
+    links.forEach((link) => { link.classList.remove('is-active'); link.removeAttribute('aria-current'); });
+    resumeLinks.forEach((link) => { link.classList.add('is-active'); link.setAttribute('aria-current', 'location'); });
+  };
+
   if (sections.length) {
-    setActive('top');
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-      if (visible) setActive(visible.target.id);
-    }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
-    sections.forEach((section) => observer.observe(section));
-    window.addEventListener('scroll', () => {
-      if (window.scrollY < 96) setActive('top');
-    }, { passive: true });
+    const updateSection = () => {
+      if (document.documentElement.scrollHeight - (window.scrollY + window.innerHeight) <= 200) return setResumeActive();
+      if (window.scrollY < 200) return setActive('top');
+      const current = sections.filter((section) => section.getBoundingClientRect().top <= 220).at(-1);
+      setActive(current?.id ?? 'top');
+    };
+    updateSection();
+    window.addEventListener('scroll', updateSection, { passive: true });
+    window.addEventListener('resize', updateSection);
   }
 
-  const toggle = document.querySelector<HTMLButtonElement>('#theme-toggle');
-  toggle?.addEventListener('click', () => {
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((toggle) => toggle.addEventListener('click', () => {
     const dark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && !matchMedia('(prefers-color-scheme: light)').matches);
     const next = dark ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
     localStorage.setItem('theme', next);
+  }));
+
+  const mobileMenu = document.querySelector<HTMLElement>('.mobile-menu');
+  const mobileToggle = document.querySelector<HTMLButtonElement>('#mobile-menu-toggle');
+  const closeMobileMenu = () => {
+    mobileMenu?.classList.remove('is-open');
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+  };
+  mobileToggle?.addEventListener('click', () => {
+    const open = !mobileMenu?.classList.contains('is-open');
+    mobileMenu?.classList.toggle('is-open', open);
+    mobileToggle.setAttribute('aria-expanded', String(open));
+  });
+  mobileMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMobileMenu));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMobileMenu();
   });
 </script>
