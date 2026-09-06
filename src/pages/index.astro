@@ -34,6 +34,7 @@ const projects = (await getCollection('projects')).filter((project) => project.d
       <div class="project-preview"><div class="project-grid">{projects.slice(0, 4).map((project, index) => <ProjectCard project={project} fadeBottom={index >= 2} />)}</div><div class="project-preview__more"><ButtonLink href="/projects/" variant="quiet" icon="projects">More projects</ButtonLink></div></div>
     </section>
   </div>
+  <div class="resume-peek-prompt" data-resume-peek-prompt aria-hidden="true"><span class="resume-peek-prompt__content"><svg viewBox="0 0 24 20"><defs><linearGradient id="resume-arrow-gradient" x1="0" x2="1"><stop stop-color="rgb(235,51,69)" /><stop offset="1" stop-color="rgb(234,63,237)" /></linearGradient></defs><path d="M3 3c9 3 14-4 12 12m0 0-4-3m4 3 2-4" /></svg><span>TL;DR?<br />Check out my resume!</span><svg viewBox="0 0 24 20"><path d="M3 3c9 3 14-4 12 12m0 0-4-3m4 3 2-4" /></svg></span></div>
   <ResumePeek />
 </BaseLayout>
 
