@@ -33,7 +33,9 @@ Add a project by creating `src/content/projects/your-slug.mdx` with the frontmat
 
 Add writing in `src/content/writing/`. The writing collection is MDX-powered and published posts appear at `/writing/`; set `draft: false` when ready.
 
-Professional experience is parsed from `src/data/resume.tex`. It is the canonical TeX source; `yarn dev` and `yarn build` copy it to `public/resume.tex` for download automatically. Add `public/resume.pdf` for the PDF download. Add or edit permanent short links in `src/data/redirects.json`; `yarn build` generates the Cloudflare Pages `_redirects` rules automatically, while Astro serves the same redirects locally.
+Professional experience and skills live in `src/data/resume-data.json`. Resume generation is deliberately preview-first: `yarn gen-resume` interactively selects the experience and skill pool and writes a temporary TeX file to `resume-tmp/resume.tex`; `yarn gen-pdf` compiles that temporary TeX to `resume-tmp/resume.pdf`. Each command reveals its finished file in Finder. Press Enter at every prompt to include all current entries.
+
+When the preview is ready to publish, run `yarn gen-resume --publish` to both regenerate the preview and copy that exact TeX to the `/resume.tex` source. Then run `yarn gen-pdf --publish` to compile the same temporary TeX preview into the downloadable `public/resume.pdf`. Add or edit permanent short links in `src/data/redirects.json`; `yarn build` generates the Cloudflare Pages `_redirects` rules automatically, while Astro serves the same redirects locally.
 
 ## Deployment
 

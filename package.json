@@ -5,10 +5,11 @@
   "type": "module",
   "packageManager": "yarn@3.6.1",
   "scripts": {
-    "dev": "yarn generate:resume && astro dev",
+    "dev": "astro dev",
+    "gen-resume": "node scripts/generate-resume.mjs",
+    "gen-pdf": "node scripts/generate-resume-pdf.mjs",
     "generate:redirects": "node scripts/generate-redirects.mjs",
-    "generate:resume": "node scripts/sync-resume.mjs",
-    "build": "yarn generate:redirects && yarn generate:resume && astro check && astro build",
+    "build": "yarn generate:redirects && astro check && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

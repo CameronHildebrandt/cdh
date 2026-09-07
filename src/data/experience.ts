@@ -14,10 +14,11 @@ export type Experience = {
 
 function toPlainText(value: string) {
   return value
+    .replace(/\\\$/g, '__RESUME_DOLLAR__')
     .replace(/\\(?:textrightarrow|rightarrow)/g, '→')
     .replace(/\$/g, '')
     .replace(/\\%/g, '%')
-    .replace(/\\\$/g, '$')
+    .replace(/__RESUME_DOLLAR__/g, '$')
     .replace(/\\&/g, '&')
     .replace(/~/g, ' ')
     .replace(/\s+/g, ' ')
@@ -50,29 +51,31 @@ function formatDuration(startDate: string, endDate: string, compact = false) {
 /**
  * The bundled TeX résumé is the canonical source for professional experience.
  * This intentionally understands the compact \resumeHeading/itemize format in
- * src/data/resume.tex, avoiding a second copy of the same content. The build
- * copies this source to public/resume.tex for the downloadable version.
+ * src/data/resume.tex, avoiding a second copy of the same content. Astro's
+ * static /resume.tex endpoint serves this source as the downloadable version.
  */
 function parseExperience(tex: string): Experience[] {
   const section = tex.match(/\\section\{Experience\}([\s\S]*?)(?=\\section\{|$)/)?.[1] ?? '';
   const entries = section.matchAll(
-    /\\resumeHeading\s*\{([^}]*)\}\s*\{([^}]*)\}\s*\{([^}]*)\}\s*\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/g,
+    /\\resumeHeading\s*\{([^}]*)\}\s*\{([^}]*)\}\s*\{([^}]*)\}(?:\s*\{([^}]*)\})?\s*\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/g,
   );
 
-  return Array.from(entries, ([, company, roleAndCity, dateRange, items]) => {
-    const divider = roleAndCity.lastIndexOf(' - ');
-    const [startDate, endDate = 'Present'] = toPlainText(dateRange).split(/\s+-\s+/);
+  return Array.from(entries, ([, role, companyAndCity, dateRange, texDuration, items]) => {
+    const divider = companyAndCity.lastIndexOf(' - ');
+    const dates = toPlainText(dateRange).match(/^([A-Za-z]+\.?\s+\d{4})\s+-\s+(Present|[A-Za-z]+\.?\s+\d{4})/) ?? [];
+    const startDate = dates[1] ?? '';
+    const endDate = dates[2] ?? 'Present';
     const highlights = Array.from(items.matchAll(/\\item\s+([\s\S]*?)(?=\\item|$)/g), ([, item]) => toPlainText(item));
 
     return {
-      company: toPlainText(company),
-      title: toPlainText(divider === -1 ? roleAndCity : roleAndCity.slice(0, divider)),
-      city: toPlainText(divider === -1 ? '' : roleAndCity.slice(divider + 3)),
+      company: toPlainText(divider === -1 ? companyAndCity : companyAndCity.slice(0, divider)),
+      title: toPlainText(role),
+      city: toPlainText(divider === -1 ? '' : companyAndCity.slice(divider + 3)),
       startDate,
       endDate,
       isCurrent: endDate === 'Present',
       duration: formatDuration(startDate, endDate),
-      durationShort: formatDuration(startDate, endDate, true),
+      durationShort: toPlainText(texDuration ?? '') || formatDuration(startDate, endDate, true),
       highlights,
     };
   });

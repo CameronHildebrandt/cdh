@@ -1,0 +1,73 @@
+{
+  "contact": {
+    "name": "Cameron Hildebrandt",
+    "location": "Edmonton, AB",
+    "phone": "(825) 436-1108",
+    "phoneHref": "+18254361108",
+    "email": "cameronhildebrandt@icloud.com"
+  },
+  "summary": "Software engineer with 7+ years of experience designing and building financial systems and full-stack products, including 4+ years of technical leadership. BSc (Honours) in Computing Science, specializing in machine learning.",
+  "experiences": [
+    {
+      "id": "bitcoin-well",
+      "company": "Bitcoin Well",
+      "role": "Intermediate Software Engineer",
+      "city": "Edmonton, AB",
+      "dates": "Jan 2024 - Present",
+      "highlights": [
+        "Designed and maintained financial infrastructure covering bank integrations, transaction processing, reconciliation, and asynchronous transaction lifecycles, including failure recovery.",
+        "Spearheaded development of our AI engineering workflow, leveraging technologies like OpenClaw to overhaul and massively streamline implementation, debugging, code review, and QA.",
+        "Hardened backend systems against security vulnerabilities by developing an AI-driven security audit pipeline to identify exploits before and after deployment.",
+        "Built an internal FINTRAC reporting system that automated reporting workflows, improving submission accuracy and freeing compliance teams to focus on higher-priority work.",
+        "Optimized the customer onboarding flow with product, increasing monthly signups by 47%.",
+        "Drove ambiguous technical problems across product, frontend, backend, infrastructure, and financial systems from investigation through production."
+      ]
+    },
+    {
+      "id": "neuralbertatech",
+      "company": "NeurAlbertaTech",
+      "role": "CTO",
+      "city": "Edmonton, AB",
+      "dates": "Feb 2019 - Feb 2024",
+      "highlights": [
+        "Designed and launched the organization's marketing website, directly supporting over $250,000 in funding and acquisition of thousands of hackathon participants.",
+        "Led development of a modular suite of internal tools for event logistics, identity verification, and micro-credentials.",
+        "Built and delivered hundreds of hours of workshops covering software development, machine learning, and brain-computer interfacing.",
+        "Technical lead across hackathons, internal teams, and student projects - mentoring developers and contributing to product and technical strategy."
+      ]
+    },
+    {
+      "id": "ghostlab",
+      "company": "Ghostlab",
+      "role": "Software Engineer (Intern → Junior)",
+      "city": "Edmonton, AB",
+      "dates": "May 2021 - Aug 2022",
+      "highlights": [
+        "Built and shipped the cash-out feature, increasing platform revenue by over 20%.",
+        "Identified and fixed a nuanced fee calculation bug responsible for thousands of dollars of lost revenue per month.",
+        "Proposed and implemented a new UX flow that significantly reduced friction, improving conversion for first-time users."
+      ]
+    },
+    {
+      "id": "neurotechx",
+      "company": "NeuroTechX",
+      "role": "BCI Course Developer",
+      "city": "Montreal, QC",
+      "dates": "Sep 2020 - Nov 2020",
+      "highlights": [
+        "Developed NeuroMaker's initial Brain-Computer Interface curriculum, contributing to an educational platform now used by 300+ schools across North America.",
+        "Distilled complex topics such as neuroscience, ethics, signal processing, machine learning, and software development into hands-on lessons and programmable projects."
+      ]
+    }
+  ],
+  "skills": [
+    { "category": "Languages", "items": ["JavaScript / TypeScript", "Python", "C++", "HTML", "CSS"] },
+    { "category": "Frameworks", "items": ["Angular", "React", "Next.js", "Astro", "Django"] },
+    { "category": "Cloud / Infra", "items": ["AWS", "Docker", "GitHub", "Bitbucket", "Jira"] }
+  ],
+  "education": {
+    "institution": "University of Alberta",
+    "degree": "BSc, Honours Computing Science (ML Specialization)",
+    "dates": "2018 - 2024"
+  }
+}
