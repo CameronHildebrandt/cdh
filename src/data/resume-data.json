@@ -19,7 +19,7 @@
         "Spearheaded development of our AI engineering workflow, leveraging technologies like OpenClaw to overhaul and massively streamline implementation, debugging, code review, and QA.",
         "Hardened backend systems against security vulnerabilities by developing an AI-driven security audit pipeline to identify exploits before and after deployment.",
         "Built an internal FINTRAC reporting system that automated reporting workflows, improving submission accuracy and freeing compliance teams to focus on higher-priority work.",
-        "Optimized the customer onboarding flow with product, increasing monthly signups by 47\\%.",
+        "Optimized the customer onboarding flow with product, increasing monthly signups by 47%.",
         "Drove ambiguous technical problems across product, frontend, backend, infrastructure, and financial systems from investigation through production."
       ]
     },
@@ -30,7 +30,7 @@
       "city": "Edmonton, AB",
       "dates": "Feb 2019 - Feb 2024",
       "highlights": [
-        "Designed and launched the organization's marketing website, directly supporting over \\$500,000 in funding and acquisition of thousands of hackathon participants.",
+        "Designed and launched the organization's marketing website, directly supporting over $250,000 in funding and acquisition of thousands of hackathon participants.",
         "Led development of a modular suite of internal tools for event logistics, identity verification, and micro-credentials.",
         "Built and delivered hundreds of hours of workshops covering software development, machine learning, and brain-computer interfacing.",
         "Technical lead across hackathons, internal teams, and student projects - mentoring developers and contributing to product and technical strategy."
@@ -39,11 +39,11 @@
     {
       "id": "ghostlab",
       "company": "Ghostlab",
-      "role": "Software Engineer (Intern $\\rightarrow$ Junior)",
+      "role": "Software Engineer (Intern → Junior)",
       "city": "Edmonton, AB",
       "dates": "May 2021 - Aug 2022",
       "highlights": [
-        "Built and shipped the cash-out feature, increasing platform revenue by over 20\\%.",
+        "Built and shipped the cash-out feature, increasing platform revenue by over 20%.",
         "Identified and fixed a nuanced fee calculation bug responsible for thousands of dollars of lost revenue per month.",
         "Proposed and implemented a new UX flow that significantly reduced friction, improving conversion for first-time users."
       ]

@@ -14,10 +14,11 @@ export type Experience = {
 
 function toPlainText(value: string) {
   return value
+    .replace(/\\\$/g, '__RESUME_DOLLAR__')
     .replace(/\\(?:textrightarrow|rightarrow)/g, '→')
     .replace(/\$/g, '')
     .replace(/\\%/g, '%')
-    .replace(/\\\$/g, '$')
+    .replace(/__RESUME_DOLLAR__/g, '$')
     .replace(/\\&/g, '&')
     .replace(/~/g, ' ')
     .replace(/\s+/g, ' ')
@@ -59,17 +60,17 @@ function parseExperience(tex: string): Experience[] {
     /\\resumeHeading\s*\{([^}]*)\}\s*\{([^}]*)\}\s*\{([^}]*)\}(?:\s*\{([^}]*)\})?\s*\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/g,
   );
 
-  return Array.from(entries, ([, company, roleAndCity, dateRange, texDuration, items]) => {
-    const divider = roleAndCity.lastIndexOf(' - ');
+  return Array.from(entries, ([, role, companyAndCity, dateRange, texDuration, items]) => {
+    const divider = companyAndCity.lastIndexOf(' - ');
     const dates = toPlainText(dateRange).match(/^([A-Za-z]+\.?\s+\d{4})\s+-\s+(Present|[A-Za-z]+\.?\s+\d{4})/) ?? [];
     const startDate = dates[1] ?? '';
     const endDate = dates[2] ?? 'Present';
     const highlights = Array.from(items.matchAll(/\\item\s+([\s\S]*?)(?=\\item|$)/g), ([, item]) => toPlainText(item));
 
     return {
-      company: toPlainText(company),
-      title: toPlainText(divider === -1 ? roleAndCity : roleAndCity.slice(0, divider)),
-      city: toPlainText(divider === -1 ? '' : roleAndCity.slice(divider + 3)),
+      company: toPlainText(divider === -1 ? companyAndCity : companyAndCity.slice(0, divider)),
+      title: toPlainText(role),
+      city: toPlainText(divider === -1 ? '' : companyAndCity.slice(divider + 3)),
       startDate,
       endDate,
       isCurrent: endDate === 'Present',
