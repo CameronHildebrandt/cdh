@@ -1,0 +1,87 @@
+<div class="ambient" aria-hidden="true">
+  <div class="ambient__field">
+    <div class="ambient__glow ambient__glow--rose"></div>
+    <div class="ambient__glow ambient__glow--violet"></div>
+    <div class="ambient__glow ambient__glow--blue"></div>
+    <div class="ambient__glow ambient__glow--rose ambient__glow--extra"></div>
+    <div class="ambient__glow ambient__glow--violet ambient__glow--extra"></div>
+    <div class="ambient__glow ambient__glow--blue ambient__glow--extra"></div>
+  </div>
+  <div class="ambient__sidebar-shade"></div>
+</div>
+
+<style>
+  :global(body) { isolation:isolate; }
+  .ambient { inset:0; overflow:hidden; pointer-events:none; position:fixed; z-index:-1; }
+  .ambient__field { height:100%; position:relative; width:calc(100% - 17rem); }
+  /* Soft radial stops need no blur filter; only transforms change during motion. */
+  .ambient__glow { aspect-ratio:1; position:absolute; width:clamp(24rem,55vw,58rem); translate:0 0; transition:translate 1.8s cubic-bezier(.16,1,.3,1); }
+  .ambient__glow--rose { background:radial-gradient(ellipse,rgba(234,63,237,.10),rgba(234,63,237,.04) 35%,rgba(234,63,237,0) 70%); left:36%; top:-26%; animation:rose-drift 38s ease-in-out infinite alternate; }
+  .ambient__glow--violet { background:radial-gradient(ellipse,rgba(151,99,230,.08),rgba(151,99,230,.03) 38%,rgba(151,99,230,0) 70%); left:-25%; top:24%; animation:violet-drift 47s ease-in-out infinite alternate; }
+  .ambient__glow--blue { background:radial-gradient(ellipse,rgba(83,117,197,.065),rgba(83,117,197,.025) 36%,rgba(83,117,197,0) 70%); left:32%; top:60%; animation:blue-drift 53s ease-in-out infinite alternate; }
+  .ambient__glow--extra { width:clamp(20rem,42vw,44rem); animation-direction:alternate-reverse; }
+  .ambient__glow--extra:nth-child(4) { left:-15%; top:-20%; }
+  .ambient__glow--extra:nth-child(5) { left:45%; top:20%; }
+  .ambient__glow--extra:nth-child(6) { left:-10%; top:65%; }
+  /* This overlays the full-width glows instead of cutting them at the content edge. */
+  .ambient__sidebar-shade { background:linear-gradient(to right,transparent 0%,color-mix(in srgb,var(--bg) 8%,transparent) 15%,color-mix(in srgb,var(--bg) 30%,transparent) 32%,color-mix(in srgb,var(--bg) 65%,transparent) 51%,color-mix(in srgb,var(--bg) 91%,transparent) 72%,var(--bg) 94%); bottom:0; position:absolute; right:0; top:0; width:27rem; }
+  @keyframes rose-drift { from { transform:translate(-4%,0); } to { transform:translate(7%,12%); } }
+  @keyframes violet-drift { from { transform:translate(0,6%); } to { transform:translate(12%,-7%); } }
+  @keyframes blue-drift { from { transform:translate(7%,0); } to { transform:translate(-9%,-12%); } }
+  .ambient[data-paused] .ambient__glow { animation-play-state:paused; }
+  @media (max-width:760px) {
+    .ambient__field { width:100%; }
+    .ambient__sidebar-shade { display:none; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .ambient__glow { animation:none !important; translate:0 0 !important; transition:none; }
+  }
+</style>
+
+<script>
+  const ambient = document.querySelector<HTMLElement>('.ambient');
+  const glows = [...document.querySelectorAll<HTMLElement>('.ambient__glow')];
+  // Jitter a shuffled set of zones so each load varies without piling up every glow.
+  const zones = Array.from({ length:6 }, (_, index) => index);
+  for (let index = zones.length - 1; index > 0; index--) {
+    const other = Math.floor(Math.random() * (index + 1));
+    [zones[index], zones[other]] = [zones[other], zones[index]];
+  }
+  glows.forEach((glow, index) => {
+    const zone = zones[index];
+    glow.style.left = `${-25 + (zone % 2) * 55 + Math.random() * 20}%`;
+    glow.style.top = `${-30 + Math.floor(zone / 2) * 35 + Math.random() * 20}%`;
+    glow.style.animationDelay = `${-Math.random() * 60}s`;
+    glow.style.animationDuration = `${38 + Math.random() * 22}s`;
+  });
+  const mouseMotion = matchMedia('(any-hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference)');
+  let frame = 0;
+  let x = 0;
+  let y = 0;
+  const render = () => {
+    frame = 0;
+    glows.forEach((glow, index) => {
+      const depth = [14, -10, 8, -12, 9, -7][index];
+      glow.style.translate = `${x * depth}px ${y * depth}px`;
+    });
+  };
+  const schedule = () => { if (!frame) frame = requestAnimationFrame(render); };
+  const reset = () => { x = 0; y = 0; schedule(); };
+  const move = (event: PointerEvent) => {
+    if (event.pointerType !== 'mouse') return;
+    x = (event.clientX / window.innerWidth - .5) * 2;
+    y = (event.clientY / window.innerHeight - .5) * 2;
+    schedule();
+  };
+  const sync = () => {
+    window.removeEventListener('pointermove', move);
+    if (mouseMotion.matches && !document.hidden) window.addEventListener('pointermove', move, { passive:true });
+    ambient?.toggleAttribute('data-paused', document.hidden);
+    reset();
+  };
+  mouseMotion.addEventListener('change', sync);
+  document.addEventListener('visibilitychange', sync);
+  document.documentElement.addEventListener('pointerleave', reset);
+  window.addEventListener('blur', reset);
+  sync();
+</script>

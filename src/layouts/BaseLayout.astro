@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import AmbientBackground from '../components/AmbientBackground.astro';
 import { Clipboard } from 'lucide-astro';
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
@@ -28,6 +29,7 @@ const canonical = new URL(Astro.url.pathname, 'https://cameronhildebrandt.dev');
     <title>{title}</title>
   </head>
   <body>
+    <AmbientBackground />
     <a class="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader />
     <Sidebar currentPath={Astro.url.pathname} />
