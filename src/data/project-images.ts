@@ -1,8 +1,10 @@
 import type { ImageMetadata } from 'astro';
 import arduinoProject from '../assets/arduino-project.jpg';
+import bciDemoWebsite from '../assets/bci-demo-website.png';
 import pixelRatioHero from '../assets/pixel-ratio-hero.png';
 
 const projectImages: Record<string, ImageMetadata> = {
+  'placeholder-project-03': bciDemoWebsite,
   'pixel-ratio': pixelRatioHero,
 };
 
