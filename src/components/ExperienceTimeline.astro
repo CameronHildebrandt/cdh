@@ -1,5 +1,55 @@
 ---
-import { experience } from '../data/experience';
+import resumeData from '../data/resume-data.json';
+
+const monthIndexes: Record<string, number> = {
+  jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+  jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
+};
+
+const toDisplayText = (value: string) => value
+  .replace(/\$\\rightarrow\$/g, '→')
+  .replace(/\\%/g, '%')
+  .replace(/\\\$/g, '$');
+
+const formatDuration = (startDate: string, endDate: string, compact = false) => {
+  const parseDate = (value: string) => {
+    if (value === 'Present') return new Date();
+    const [, month, year] = value.match(/^([A-Za-z]+)\.?\s+(\d{4})$/) ?? [];
+    const monthIndex = monthIndexes[month?.slice(0, 3).toLowerCase() ?? ''];
+    return monthIndex === undefined || !year ? null : new Date(Number(year), monthIndex, 1);
+  };
+  const start = parseDate(startDate);
+  const end = parseDate(endDate);
+  if (!start || !end) return { full: '', short: '' };
+
+  const totalMonths = Math.max(0, (end.getFullYear() - start.getFullYear()) * 12 + end.getMonth() - start.getMonth());
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+  const parts = [
+    years && (compact ? `${years}y` : `${years} ${years === 1 ? 'year' : 'years'}`),
+    months && (compact ? `${months}m` : `${months} ${months === 1 ? 'month' : 'months'}`),
+  ].filter(Boolean).join(' ');
+  return compact ? { full: '', short: parts } : { full: parts, short: '' };
+};
+
+// The homepage intentionally reads the canonical JSON pool, not the generated TeX.
+const experience = resumeData.experiences.map((item) => {
+  const [startDate, endDate = 'Present'] = item.dates.split(/\s+-\s+/);
+  const duration = formatDuration(startDate, endDate);
+  const durationShort = formatDuration(startDate, endDate, true);
+
+  return {
+    ...item,
+    title: toDisplayText(item.role),
+    city: toDisplayText(item.city),
+    startDate,
+    endDate,
+    isCurrent: endDate === 'Present',
+    duration: duration.full,
+    durationShort: durationShort.short,
+    highlights: item.highlights.map(toDisplayText),
+  };
+});
 ---
 <ol class="timeline">
   {experience.map((item, index) => (

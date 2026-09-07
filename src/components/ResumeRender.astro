@@ -11,9 +11,9 @@ import { experience } from '../data/experience';
   <section><h3>Summary</h3><p>Software engineer with 7+ years of experience designing and building financial systems and full-stack products, including 4+ years of technical leadership. BSc (Honours) in Computing Science, specializing in machine learning.</p></section>
 
   <section><h3>Experience</h3>
-    {experience.map((item) => <div class="resume-entry"><div class="resume-entry__heading"><strong>{item.company}</strong><span>{item.startDate} - {item.endDate}</span></div><p><em>{item.title}{item.city && ` - ${item.city}`}</em></p><ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul></div>)}
+    {experience.map((item) => <div class="resume-entry"><div class="resume-entry__heading"><strong>{item.company}</strong><span>{item.durationShort && `${item.durationShort} · `}{item.startDate} - {item.endDate}</span></div><p><em>{item.title}{item.city && ` - ${item.city}`}</em></p><ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul></div>)}
   </section>
 
-  <section><h3>Technical Skills</h3><dl class="resume-skills"><div><dt>Languages</dt><dd>JavaScript / TypeScript, Python, C++, HTML, CSS</dd></div><div><dt>Frameworks</dt><dd>Angular, React, Next.js, Astro, Django</dd></div><div><dt>Cloud / Infrastructure</dt><dd>AWS, Docker, GitHub, Bitbucket, Jira</dd></div></dl></section>
+  <section><h3>Technical Skills</h3><dl class="resume-skills"><div><dt>Languages</dt><dd>JavaScript / TypeScript, Python, C++, HTML, CSS</dd></div><div><dt>Frameworks</dt><dd>Angular, React, Next.js, Astro, Django</dd></div><div><dt>Cloud / Infra</dt><dd>AWS, Docker, GitHub, Bitbucket, Jira</dd></div></dl></section>
   <section><h3>Education</h3><div class="resume-entry__heading"><strong>University of Alberta</strong><span>2018 - 2024</span></div><p><em>BSc, Honours Computing Science (ML Specialization)</em></p></section>
 </article>

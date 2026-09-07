@@ -50,18 +50,20 @@ function formatDuration(startDate: string, endDate: string, compact = false) {
 /**
  * The bundled TeX résumé is the canonical source for professional experience.
  * This intentionally understands the compact \resumeHeading/itemize format in
- * src/data/resume.tex, avoiding a second copy of the same content. The build
- * copies this source to public/resume.tex for the downloadable version.
+ * src/data/resume.tex, avoiding a second copy of the same content. Astro's
+ * static /resume.tex endpoint serves this source as the downloadable version.
  */
 function parseExperience(tex: string): Experience[] {
   const section = tex.match(/\\section\{Experience\}([\s\S]*?)(?=\\section\{|$)/)?.[1] ?? '';
   const entries = section.matchAll(
-    /\\resumeHeading\s*\{([^}]*)\}\s*\{([^}]*)\}\s*\{([^}]*)\}\s*\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/g,
+    /\\resumeHeading\s*\{([^}]*)\}\s*\{([^}]*)\}\s*\{([^}]*)\}(?:\s*\{([^}]*)\})?\s*\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/g,
   );
 
-  return Array.from(entries, ([, company, roleAndCity, dateRange, items]) => {
+  return Array.from(entries, ([, company, roleAndCity, dateRange, texDuration, items]) => {
     const divider = roleAndCity.lastIndexOf(' - ');
-    const [startDate, endDate = 'Present'] = toPlainText(dateRange).split(/\s+-\s+/);
+    const dates = toPlainText(dateRange).match(/^([A-Za-z]+\.?\s+\d{4})\s+-\s+(Present|[A-Za-z]+\.?\s+\d{4})/) ?? [];
+    const startDate = dates[1] ?? '';
+    const endDate = dates[2] ?? 'Present';
     const highlights = Array.from(items.matchAll(/\\item\s+([\s\S]*?)(?=\\item|$)/g), ([, item]) => toPlainText(item));
 
     return {
@@ -72,7 +74,7 @@ function parseExperience(tex: string): Experience[] {
       endDate,
       isCurrent: endDate === 'Present',
       duration: formatDuration(startDate, endDate),
-      durationShort: formatDuration(startDate, endDate, true),
+      durationShort: toPlainText(texDuration ?? '') || formatDuration(startDate, endDate, true),
       highlights,
     };
   });
