@@ -21,3 +21,4 @@ section { padding:clamp(4.5rem,9vw,8rem) 0; } section + section { border-top:1px
 .resume-render__domain { -webkit-background-clip:initial; background:none; background-clip:initial; color:var(--muted); }
 .resume-render__header { border-bottom:0; }
 .resume-render section:nth-of-type(n + 3) { padding-top:1.6rem; }
+@media (max-width:760px) { .resume-page { padding-bottom:max(12rem,calc(8rem + env(safe-area-inset-bottom))); } }
