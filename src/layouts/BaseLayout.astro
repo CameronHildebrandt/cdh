@@ -57,7 +57,7 @@ const canonical = new URL(Astro.url.pathname, 'https://cameronhildebrandt.dev');
           document.execCommand('copy');
           field.remove();
         }
-        showToast(`${value} copied`);
+        showToast(`copied "${value}""`);
       };
       document.addEventListener('click', (event) => {
         const charm = (event.target as Element).closest<HTMLElement>('[data-copy-charm]');
