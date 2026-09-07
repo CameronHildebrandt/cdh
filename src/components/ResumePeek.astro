@@ -36,10 +36,10 @@
     .resume-peek strong { font-size:1.18rem; }
     .resume-peek > span:not(.resume-peek__eyebrow):not(.resume-peek__line) { font-size:.72rem; }
     .resume-peek hr { margin:.7rem 0 .25rem; }
-    :global(.resume-peek-prompt) { bottom:8rem; font-size:.72rem; left:50%; width:min(16rem,calc(100vw - 2rem)); }
+    :global(.resume-peek-prompt) { bottom:17rem; font-size:.72rem; left:50%; width:min(16rem,calc(100vw - 2rem)); }
     :global(.resume-peek-prompt__content) { gap:.45rem; }
     :global(.resume-peek-prompt__content svg) { height:1.3rem; width:1.5rem; }
-    .resume-peek.is-prominent { transform:translateX(-50%) scale(1.22); }
-    .resume-peek.is-prominent:hover { transform:translateX(-50%) translateY(-2.2rem) scale(1.22); }
+    .resume-peek.is-prominent { bottom:max(1rem,env(safe-area-inset-bottom)); transform:translateX(-50%); }
+    .resume-peek.is-prominent:hover { transform:translateX(-50%) translateY(-2.2rem); }
   }
 </style>
