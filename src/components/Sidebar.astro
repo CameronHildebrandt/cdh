@@ -54,7 +54,7 @@ const nav = [
     const updateSection = () => {
       if (document.documentElement.scrollHeight - (window.scrollY + window.innerHeight) <= 200) return setResumeActive();
       if (window.scrollY < 200) return setActive('top');
-      const current = sections.filter((section) => section.getBoundingClientRect().top <= 220).at(-1);
+      const current = sections.filter((section) => section.getBoundingClientRect().top <= window.innerHeight / 2).at(-1);
       setActive(current?.id ?? 'top');
     };
     updateSection();
