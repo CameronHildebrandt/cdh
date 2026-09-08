@@ -12,7 +12,7 @@ const nav = [
 ];
 ---
 <aside class="sidebar" aria-label="Primary navigation">
-  <nav><ul>{nav.map((item) => <li><a href={item.href} data-section={item.href.startsWith('/#') ? item.href.slice(2) : undefined} data-resume-link={item.label === 'Resume' ? '' : undefined} class:list={['nav-link', item.active && 'is-active']} aria-current={item.active ? 'page' : undefined}>{item.label}</a></li>)}</ul></nav>
+  <nav><ul>{nav.map((item) => <li><a href={item.href} data-section={item.href.startsWith('/#') ? item.href.slice(2) : undefined} data-resume-link={item.label === 'Resume' ? '' : undefined} class:list={['nav-link', item.active && 'is-active']} aria-current={item.active ? 'page' : undefined}>{item.label}</a></li>)}</ul><span class="nav-indicator" aria-hidden="true"></span></nav>
   <div class="sidebar__footer">
     <p class="availability"><span class="availability__text"><span class="availability__primary"><span class="availability__indicator" aria-hidden="true"></span>Edmonton, AB</span><span>Open to remote</span></span></p>
     <div class="social-links">
@@ -34,6 +34,15 @@ const nav = [
   const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-section]')];
   const resumeLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-resume-link]')];
   const sections = links.map((link) => document.getElementById(link.dataset.section ?? '')).filter((section): section is HTMLElement => Boolean(section));
+  const desktopNavigation = document.querySelector<HTMLElement>('.sidebar nav');
+
+  const updateIndicator = () => {
+    const activeLink = document.querySelector<HTMLAnchorElement>('.sidebar .nav-link.is-active');
+    if (!desktopNavigation || !activeLink) return;
+    const navigationTop = desktopNavigation.getBoundingClientRect().top;
+    const { top, height } = activeLink.getBoundingClientRect();
+    desktopNavigation.style.setProperty('--active-indicator-offset', `${top - navigationTop + (height - 17.6) / 2}px`);
+  };
 
   const setActive = (id: string) => {
     resumeLinks.forEach((link) => { link.classList.remove('is-active'); link.removeAttribute('aria-current'); });
@@ -43,11 +52,13 @@ const nav = [
       if (active) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
+    updateIndicator();
   };
 
   const setResumeActive = () => {
     links.forEach((link) => { link.classList.remove('is-active'); link.removeAttribute('aria-current'); });
     resumeLinks.forEach((link) => { link.classList.add('is-active'); link.setAttribute('aria-current', 'location'); });
+    updateIndicator();
   };
 
   if (sections.length) {
@@ -61,6 +72,8 @@ const nav = [
     window.addEventListener('scroll', updateSection, { passive: true });
     window.addEventListener('resize', updateSection);
   }
+
+  updateIndicator();
 
   document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((toggle) => toggle.addEventListener('click', () => {
     const dark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && !matchMedia('(prefers-color-scheme: light)').matches);
