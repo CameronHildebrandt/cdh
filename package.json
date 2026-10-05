@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "astro dev",
     "gen-resume": "node scripts/generate-resume.mjs",
+    "gen-cover-letter": "node scripts/generate-cover-letter.mjs",
     "gen-pdf": "node scripts/generate-resume-pdf.mjs",
     "generate:redirects": "node scripts/generate-redirects.mjs",
     "build": "yarn generate:redirects && astro check && astro build",
