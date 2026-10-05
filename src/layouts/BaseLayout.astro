@@ -7,6 +7,7 @@ import { Clipboard } from 'lucide-astro';
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, 'https://cameronhildebrandt.dev');
+const socialImage = new URL('/social-preview.png', canonical);
 ---
 <!doctype html>
 <html lang="en">
@@ -20,7 +21,17 @@ const canonical = new URL(Astro.url.pathname, 'https://cameronhildebrandt.dev');
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:secure_url" content={socialImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Cameron Hildebrandt's brain-computer interface demo dashboard" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content="Cameron Hildebrandt's brain-computer interface demo dashboard" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script is:inline>
       const savedTheme = localStorage.getItem('theme');
