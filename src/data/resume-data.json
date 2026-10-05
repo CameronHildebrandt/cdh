@@ -4,7 +4,7 @@
     "location": "Edmonton, AB",
     "phone": "(825) 436-1108",
     "phoneHref": "+18254361108",
-    "email": "cameronhildebrandt@icloud.com"
+    "email": "cameron@chil.dev"
   },
   "summary": "Software engineer with 7+ years of experience designing and building financial systems and full-stack products, including 4+ years of technical leadership. BSc (Honours) in Computing Science, specializing in machine learning.",
   "experiences": [
@@ -61,9 +61,36 @@
     }
   ],
   "skills": [
-    { "category": "Languages", "items": ["JavaScript / TypeScript", "Python", "C++", "HTML", "CSS"] },
-    { "category": "Frameworks", "items": ["Angular", "React", "Next.js", "Astro", "Django"] },
-    { "category": "Cloud / Infra", "items": ["AWS", "Docker", "GitHub", "Bitbucket", "Jira"] }
+    {
+      "category": "Languages",
+      "items": [
+        "JavaScript / TypeScript",
+        "Python",
+        "C++",
+        "HTML",
+        "CSS"
+      ]
+    },
+    {
+      "category": "Frameworks",
+      "items": [
+        "Angular",
+        "React",
+        "Next.js",
+        "Astro",
+        "Django"
+      ]
+    },
+    {
+      "category": "Cloud / Infra",
+      "items": [
+        "AWS",
+        "Docker",
+        "GitHub",
+        "Bitbucket",
+        "Jira"
+      ]
+    }
   ],
   "education": {
     "institution": "University of Alberta",

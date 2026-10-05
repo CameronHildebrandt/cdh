@@ -9,11 +9,14 @@ import ResumePeek from '../components/ResumePeek.astro';
 import CopyCharm from '../components/CopyCharm.astro';
 import { ArrowDown } from 'lucide-astro';
 const projects = (await getCollection('projects')).filter((project) => project.data.featured).sort((a, b) => a.data.order - b.data.order);
+const nameLines = ['Cameron', 'Hildebrandt'];
 ---
 <BaseLayout title="Cameron Hildebrandt — Software Engineer" description="Personal site of Cameron Hildebrandt, a software engineer.">
   <div class="page" id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title" class="hero__name">Cameron<br />Hildebrandt</h1>
+      <h1 id="hero-title" class="hero__name" aria-label="Cameron Hildebrandt">
+        {nameLines.map((line, lineIndex) => <span class="hero__name-line" aria-hidden="true">{[...line].map((letter, letterIndex) => <span class="hero__name-letter" style={`--letter-delay:${lineIndex === 0 ? letterIndex * 70 : 300 + letterIndex * 70}ms`}>{letter}</span>)}</span>)}
+      </h1>
       <p class="hero__tagline gradient-text">Full-Stack Software Engineer</p>
       <ul class="hero__charms" aria-label="Areas of focus"><li class="charm-item"><CopyCharm label="AI" /></li><li class="charm-item"><CopyCharm label="ML" /></li><li class="charm-item"><CopyCharm label="TypeScript" /></li><li class="charm-item"><CopyCharm label="Angular" /></li><li class="charm-item"><CopyCharm label="Node.js" /></li></ul>
       <div class="button-row">
@@ -55,6 +58,29 @@ const projects = (await getCollection('projects')).filter((project) => project.d
 </style>
 
 <script>
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const heroName = document.querySelector<HTMLElement>('.hero__name');
+
+  const playHeroName = () => {
+    if (!heroName) return;
+    heroName.classList.remove('is-animating');
+    void heroName.offsetWidth;
+    heroName.classList.add('is-animating');
+  };
+
+  if (hero && heroName && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    playHeroName();
+    let hasLeftView = false;
+    new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) {
+        hasLeftView = true;
+      } else if (hasLeftView) {
+        playHeroName();
+        hasLeftView = false;
+      }
+    }, { threshold:0.25 }).observe(hero);
+  }
+
   const scrollHint = document.querySelector<HTMLElement>('[data-scroll-hint]');
   const dismissScrollHint = () => scrollHint?.classList.add('is-hidden');
   window.addEventListener('scroll', dismissScrollHint, { passive:true, once:true });
