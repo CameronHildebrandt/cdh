@@ -9,6 +9,7 @@ const projects = defineCollection({
     published: z.coerce.date(),
     order: z.number().default(999),
     featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
     projectType: z.string().default("Selected work"),
     technologies: z.array(z.string()),
     links: z
